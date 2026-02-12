@@ -1,100 +1,129 @@
-// Edit src/App.jsx to start building!
-import React, { useMemo, useState } from "react";
+import { useState, useCallback } from 'react';
+import { EXERCISES, calcTrainingMax, getRoundIncrement, roundWeight } from './utils/wendler';
+import { load, save } from './utils/storage';
+import Setup from './components/Setup';
+import CyclePlan from './components/CyclePlan';
+import WorkoutLog from './components/WorkoutLog';
+import NewCycle from './components/NewCycle';
+import History from './components/History';
+import './App.css';
+
+function createCycle(number, trainingMaxes) {
+  return {
+    number,
+    trainingMaxes,
+    logs: {},
+    createdAt: new Date().toISOString(),
+  };
+}
 
 export default function App() {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("Tom");
+  const [data, setData] = useState(() => load());
+  const [view, setView] = useState(data ? 'dashboard' : 'setup');
+  const [workoutTarget, setWorkoutTarget] = useState(null);
 
-  const greeting = useMemo(() => {
-    const hour = new Date().getHours();
-    const part =
-      hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
-    return `Good ${part}, ${name || "friend"}!`;
-  }, [name]);
+  const persist = useCallback((newData) => {
+    setData(newData);
+    save(newData);
+  }, []);
 
-  const card = {
-    fontFamily:
-      'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
-    maxWidth: 680,
-    margin: "40px auto",
-    padding: 24,
-    border: "1px solid #e5e7eb",
-    borderRadius: 14,
-    boxShadow: "0 8px 20px rgba(0,0,0,0.06)",
-    lineHeight: 1.5
+  const handleSetup = ({ unit, tmPct, estimated1RMs }) => {
+    const ri = getRoundIncrement(unit);
+    const trainingMaxes = {};
+    EXERCISES.forEach(ex => {
+      trainingMaxes[ex.id] = roundWeight(calcTrainingMax(estimated1RMs[ex.id], tmPct), ri);
+    });
+    const newData = {
+      settings: { unit, tmPct },
+      cycles: [createCycle(1, trainingMaxes)],
+    };
+    persist(newData);
+    setView('dashboard');
   };
 
-  const row = {
-    display: "flex",
-    gap: 12,
-    alignItems: "center",
-    flexWrap: "wrap"
+  const handleLogWorkout = (exerciseId, weekIndex) => {
+    setWorkoutTarget({ exerciseId, weekIndex });
+    setView('workout');
   };
 
-  const button = {
-    border: "1px solid #111827",
-    background: "#111827",
-    color: "#fff",
-    padding: "10px 14px",
-    borderRadius: 12,
-    cursor: "pointer"
+  const handleSaveWorkout = (logEntry) => {
+    const newData = { ...data };
+    const cycle = { ...newData.cycles[newData.cycles.length - 1] };
+    cycle.logs = {
+      ...cycle.logs,
+      [`${logEntry.exerciseId}-${logEntry.weekIndex}`]: logEntry,
+    };
+    newData.cycles = [...newData.cycles.slice(0, -1), cycle];
+    persist(newData);
+    setView('dashboard');
+    setWorkoutTarget(null);
   };
 
-  const ghost = {
-    border: "1px solid #d1d5db",
-    background: "#fff",
-    color: "#111827",
-    padding: "10px 14px",
-    borderRadius: 12,
-    cursor: "pointer"
+  const handleNewCycle = (newTMs) => {
+    const currentCycle = data.cycles[data.cycles.length - 1];
+    const newData = {
+      ...data,
+      cycles: [...data.cycles, createCycle(currentCycle.number + 1, newTMs)],
+    };
+    persist(newData);
+    setView('dashboard');
   };
 
-  const input = {
-    border: "1px solid #d1d5db",
-    padding: "10px 12px",
-    borderRadius: 12,
-    width: 220
+  const handleReset = () => {
+    if (window.confirm('Reset all data? This cannot be undone.')) {
+      save(null);
+      setData(null);
+      setView('setup');
+    }
   };
+
+  if (view === 'setup' || !data) {
+    return (
+      <div className="app">
+        <Setup onComplete={handleSetup} />
+      </div>
+    );
+  }
+
+  const currentCycle = data.cycles[data.cycles.length - 1];
 
   return (
-    <div style={card}>
-      <h1 style={{ marginTop: 0 }}>{greeting}</h1>
-      <p style={{ marginBottom: 18 }}>
-        This is a minimal Vite + React app deployed via GitHub Actions to GitHub Pages.
-        Edit <code>src/App.jsx</code> and push to redeploy.
-      </p>
-
-      <div style={row}>
-        <button style={button} onClick={() => setCount((c) => c + 1)}>
-          Clicked {count} {count === 1 ? "time" : "times"}
-        </button>
-        <button style={ghost} onClick={() => setCount(0)}>
-          Reset
-        </button>
-      </div>
-
-      <hr style={{ border: "none", borderTop: "1px solid #e5e7eb", margin: "20px 0" }} />
-
-      <div style={row}>
-        <label htmlFor="name" style={{ fontWeight: 600 }}>
-          Your name
-        </label>
-        <input
-          id="name"
-          style={input}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Type something"
-          aria-label="Your name"
+    <div className="app">
+      {view === 'dashboard' && (
+        <CyclePlan
+          cycle={currentCycle}
+          settings={data.settings}
+          onLog={handleLogWorkout}
+          onNewCycle={() => setView('newCycle')}
+          onHistory={() => setView('history')}
+          onReset={handleReset}
         />
-        <span style={{ opacity: 0.75 }}>
-          Try changing this and refresh. State resets on reload.
-        </span>
-      </div>
-
-      <p style={{ marginTop: 22, fontSize: 14, opacity: 0.8 }}>
-        Deployed URL format: <code>https://&lt;username&gt;.github.io/my-vite-react-app/</code>
-      </p>
+      )}
+      {view === 'workout' && workoutTarget && (
+        <WorkoutLog
+          cycle={currentCycle}
+          exerciseId={workoutTarget.exerciseId}
+          weekIndex={workoutTarget.weekIndex}
+          settings={data.settings}
+          onSave={handleSaveWorkout}
+          onCancel={() => { setView('dashboard'); setWorkoutTarget(null); }}
+        />
+      )}
+      {view === 'newCycle' && (
+        <NewCycle
+          currentCycle={currentCycle}
+          settings={data.settings}
+          onComplete={handleNewCycle}
+          onCancel={() => setView('dashboard')}
+        />
+      )}
+      {view === 'history' && (
+        <History
+          cycles={data.cycles}
+          settings={data.settings}
+          onBack={() => setView('dashboard')}
+        />
+      )}
     </div>
   );
 }
