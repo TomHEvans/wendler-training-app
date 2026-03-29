@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1528"/>
+      <stop offset="100%" stop-color="#151521"/>
+    </linearGradient>
+    <linearGradient id="db" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4637a"/>
+      <stop offset="100%" stop-color="#9a6ab8"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="180" height="180" rx="40" fill="url(#bg)"/>
+  <!-- Dumbbell -->
+  <!-- Left weight plates -->
+  <rect x="38" y="58" width="16" height="64" rx="5" fill="url(#db)"/>
+  <rect x="50" y="66" width="10" height="48" rx="3" fill="url(#db)" opacity="0.7"/>
+  <!-- Bar -->
+  <rect x="56" y="83" width="68" height="14" rx="7" fill="url(#db)" opacity="0.5"/>
+  <!-- Right weight plates -->
+  <rect x="120" y="66" width="10" height="48" rx="3" fill="url(#db)" opacity="0.7"/>
+  <rect x="126" y="58" width="16" height="64" rx="5" fill="url(#db)"/>
+</svg>

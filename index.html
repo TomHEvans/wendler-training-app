@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Hyrox Prep Plan</title>
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hyrox Prep">
+<meta name="theme-color" content="#0c0c14">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0c0c14;--surface:#151521;--surface2:#1c1c2a;--border:#252535;
+    --text:#e2e2ea;--text-muted:#7a7a90;--text-dim:#4a4a5a;
+    --grad-full:linear-gradient(90deg,#d4637a,#d4936a,#c4a46a,#5ab88a,#5a8ab8,#9a6ab8);
+    --grad-red:linear-gradient(90deg,#d4637a,#d4936a);
+    --grad-green:linear-gradient(90deg,#5ab88a,#5a8ab8);
+    --grad-blue:linear-gradient(90deg,#5a8ab8,#9a6ab8);
+    --grad-orange:linear-gradient(90deg,#d4936a,#c4a46a);
+    --grad-cta:linear-gradient(90deg,#d4637a,#9a6ab8);
+    --radius:12px;--radius-lg:16px;
+  }
+  html{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
+  body{min-height:100vh;padding-bottom:72px;overflow-x:hidden}
+
+  /* Ambient gradient background */
+  body::before{
+    content:'';position:fixed;top:0;left:0;right:0;height:350px;
+    background:radial-gradient(ellipse at 30% 0%,rgba(212,99,122,.04) 0%,transparent 60%),
+               radial-gradient(ellipse at 70% 0%,rgba(90,138,184,.03) 0%,transparent 60%);
+    pointer-events:none;z-index:0;
+  }
+
+  .container{max-width:480px;margin:0 auto;padding:16px;position:relative;z-index:1}
+
+  /* Header */
+  .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:0 4px}
+  .header-brand{display:flex;align-items:center;gap:8px}
+  .header-icon{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0}
+  .header-title{font-weight:700;font-size:18px}
+
+  /* Hero */
+  .hero{margin-bottom:24px}
+  .hero-sub{font-size:13px;color:var(--text-muted);margin-bottom:4px}
+  .hero-main{font-size:26px;font-weight:700;background:var(--grad-full);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
+  .hero-detail{font-size:13px;color:var(--text-muted);margin-top:6px}
+
+  /* Countdown */
+  .countdown-bar{background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;position:relative;overflow:hidden}
+  .countdown-bar::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-full)}
+  .countdown-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  .countdown-value{font-size:20px;font-weight:700}
+  .countdown-row{display:flex;gap:8px}
+  .countdown-item{flex:1;background:var(--surface);border-radius:var(--radius);padding:12px;position:relative;overflow:hidden;text-align:center}
+  .countdown-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .countdown-item:nth-child(1)::before{background:var(--grad-red)}
+  .countdown-item:nth-child(2)::before{background:var(--grad-green)}
+  .countdown-item:nth-child(3)::before{background:var(--grad-blue)}
+  .countdown-item .ci-val{font-size:20px;font-weight:700}
+  .countdown-item .ci-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+  /* Week tabs */
+  .week-tabs{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .week-tabs::-webkit-scrollbar{display:none}
+  .week-tab{flex-shrink:0;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;background:var(--surface);color:var(--text-muted);border:1px solid transparent;white-space:nowrap}
+  .week-tab:hover{color:var(--text)}
+  .week-tab.active{background:var(--grad-cta);color:#fff;border-color:transparent}
+  .week-tab .wt-pct{display:block;font-size:10px;font-weight:400;margin-top:2px}
+
+  /* Day card */
+  .day-card{background:var(--surface);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden;transition:all .2s}
+  .day-card::before{content:'';display:block;height:2px}
+  .day-card:nth-child(6n+1)::before{background:#d4637a}
+  .day-card:nth-child(6n+2)::before{background:#d4936a}
+  .day-card:nth-child(6n+3)::before{background:var(--border)}
+  .day-card:nth-child(6n+4)::before{background:#5ab88a}
+  .day-card:nth-child(6n+5)::before{background:#5a8ab8}
+  .day-card:nth-child(6n+6)::before{background:#9a6ab8}
+  .day-card.rest-day::before{background:linear-gradient(90deg,#444,#555)}
+
+  .day-header{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+  .day-header-left{flex:1}
+  .day-date{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+  .day-title{font-size:15px;font-weight:600;margin-top:2px}
+  .day-meta{font-size:11px;color:var(--text-muted);margin-top:3px}
+  .day-progress{display:flex;align-items:center;gap:8px}
+  .day-pct{font-size:13px;font-weight:600;color:var(--text-muted)}
+  .day-pct.complete{background:var(--grad-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .day-chevron{font-size:12px;color:var(--text-dim);transition:transform .2s}
+  .day-card.expanded .day-chevron{transform:rotate(180deg)}
+
+  .day-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .day-card.expanded .day-body{max-height:8000px}
+
+  /* Section */
+  .section{padding:0 16px;margin-bottom:12px}
+  .section:last-child{padding-bottom:16px}
+  .section-header{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:8px 0;border-bottom:1px solid var(--border);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+  .section-toggle{font-size:10px;cursor:pointer;color:var(--text-dim);padding:2px 6px;border-radius:4px;background:var(--surface2)}
+
+  /* Inline exercise row (single-check items) */
+  .exercise{display:flex;align-items:flex-start;gap:10px;padding:7px 0;cursor:pointer;user-select:none}
+  .exercise:active{opacity:.7}
+  .ex-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px}
+  .exercise.done .ex-check{border-color:#5ab88a;background:rgba(90,184,138,.12)}
+  .exercise.done .ex-check::after{content:'';width:10px;height:10px;border-radius:3px;background:#5ab88a}
+  .ex-text{flex:1;font-size:13px;line-height:1.4;color:var(--text)}
+  .exercise.done .ex-text{color:var(--text-muted);text-decoration:line-through;text-decoration-color:rgba(107,107,128,.3)}
+  .ex-detail{font-size:11px;color:var(--text-muted);margin-top:1px}
+  .exercise.done .ex-detail{opacity:.5}
+
+  /* Exercise block (multi-set items) */
+  .ex-block{margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid rgba(30,30,42,.4)}
+  .ex-block:last-child{border-bottom:none}
+  .ex-block.all-done .ex-name{color:var(--text-muted);text-decoration:line-through;text-decoration-color:rgba(107,107,128,.3)}
+  .ex-name-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0 2px}
+  .ex-ind{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+  .ex-block.all-done .ex-ind{border-color:#5ab88a;background:rgba(90,184,138,.12)}
+  .ex-block.all-done .ex-ind::after{content:'';width:8px;height:8px;border-radius:2px;background:#5ab88a}
+  .ex-name{font-size:13px;line-height:1.3}
+  .ex-det{font-size:11px;color:var(--text-muted);margin-top:1px}
+
+  /* Set rows */
+  .set-rows{padding-left:26px;padding-bottom:2px}
+  .set-row{display:flex;align-items:center;gap:5px;padding:3px 0;min-height:28px}
+  .set-num{font-size:10px;color:var(--text-dim);width:18px;flex-shrink:0;text-align:right}
+  .set-input{background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:4px 3px;font-size:12px;font-family:inherit;text-align:center;outline:none;transition:border-color .2s;-moz-appearance:textfield}
+  .set-input::-webkit-inner-spin-button,.set-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .set-input:focus{border-color:rgba(154,106,184,.3)}
+  .set-input.w{width:52px}
+  .set-input.r{width:38px}
+  .set-input.t{width:46px}
+  .set-input.ft{width:56px}
+  .set-sep{color:var(--text-dim);font-size:11px}
+  .set-target{color:var(--text-dim);font-size:10px}
+  .set-chk{width:22px;height:22px;border-radius:5px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:auto;transition:all .15s;user-select:none}
+  .set-chk.done{border-color:#5ab88a;background:rgba(90,184,138,.12)}
+  .set-chk.done::after{content:'✓';color:#5ab88a;font-size:11px;font-weight:700}
+  .set-chk:active{transform:scale(.9)}
+  .wu-label{font-size:12px;color:var(--text-muted)}
+
+  /* e1RM badge */
+  .e1rm{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;background:rgba(196,164,106,.06);margin:2px 0 4px 26px}
+  .e1rm-label{font-size:10px;color:#c4a46a;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+  .e1rm-val{font-size:13px;font-weight:700;background:linear-gradient(90deg,#c4a46a,#d4936a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+  /* Prev hint */
+  .prev-hint{font-size:10px;color:var(--text-dim);padding:2px 0 4px 26px;border-left:2px solid var(--border);margin-left:34px}
+
+  /* Notes input */
+  .notes-area{margin:8px 16px 16px;position:relative}
+  .notes-area textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px 12px;font-size:12px;font-family:inherit;resize:vertical;min-height:40px;outline:none;transition:border-color .2s}
+  .notes-area textarea:focus{border-color:rgba(154,106,184,.3)}
+  .notes-area textarea::placeholder{color:var(--text-dim)}
+  .notes-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;padding-left:2px}
+
+  /* Progress bar (mini) */
+  .progress-mini{height:3px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-top:8px}
+  .progress-mini-fill{height:100%;border-radius:2px;background:#5ab88a;transition:width .3s}
+
+  /* Overall stats */
+  .stats-row{display:flex;gap:8px;margin-bottom:20px}
+  .stat-card{flex:1;background:var(--surface);border-radius:var(--radius);padding:12px;position:relative;overflow:hidden;text-align:center}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .stat-card:nth-child(1)::before{background:var(--grad-red)}
+  .stat-card:nth-child(2)::before{background:var(--grad-green)}
+  .stat-card:nth-child(3)::before{background:var(--grad-blue)}
+  .stat-val{font-size:20px;font-weight:700}
+  .stat-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+  /* Rest day */
+  .rest-card-body{padding:16px;text-align:center;color:var(--text-muted);font-size:13px}
+  .rest-emoji{font-size:32px;margin-bottom:8px}
+
+  /* Scrollbar */
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+  /* Rest timer */
+  .rest-pill{position:fixed;bottom:68px;right:16px;background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:8px 14px;display:flex;align-items:center;gap:8px;z-index:99;cursor:pointer;user-select:none;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+  .rest-pill.running{border-color:rgba(154,106,184,.2)}
+  .rest-pill.done{border-color:rgba(90,184,138,.25);animation:timerFlash .5s}
+  @keyframes timerFlash{0%,100%{border-color:rgba(90,184,138,.25)}50%{border-color:rgba(90,184,138,.5)}}
+  .rest-pill .timer-val{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;min-width:36px;text-align:center}
+  .rest-pill .timer-btn{font-size:14px;opacity:.6}
+  .rest-pill .timer-cog{font-size:12px;opacity:.4;padding:2px}
+  .rest-config{position:fixed;bottom:130px;right:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:8px;z-index:99;display:none;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+  .rest-config.show{display:flex;flex-wrap:wrap;gap:4px}
+  .rest-opt{padding:6px 10px;border-radius:6px;font-size:12px;background:var(--surface2);color:var(--text-muted);cursor:pointer}
+  .rest-opt.sel{background:var(--grad-cta);color:#fff}
+
+  /* Feel selectors */
+  .feel-row{display:flex;gap:4px;padding:8px 16px;align-items:center}
+  .feel-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-right:6px;flex-shrink:0}
+  .feel-opt{font-size:11px;padding:4px 8px;border-radius:6px;background:var(--surface2);color:var(--text-dim);cursor:pointer;transition:all .15s;user-select:none;text-align:center}
+  .feel-opt:active{transform:scale(.95)}
+  .feel-opt.sel{background:var(--grad-cta);color:#fff;font-weight:600}
+
+  /* Bottom nav */
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;height:56px;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:100}
+  .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;user-select:none;padding-top:6px}
+  .nav-item .nav-icon{font-size:18px;opacity:.3;transition:opacity .2s}
+  .nav-item.active .nav-icon{opacity:1}
+  .nav-item .nav-label{font-size:9px;color:var(--text-dim);margin-top:2px;transition:color .2s}
+  .nav-item.active .nav-label{background:var(--grad-red);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600}
+  .nav-item.active::before{content:'';position:absolute;top:0;left:25%;right:25%;height:2px;background:var(--grad-red);border-radius:0 0 2px 2px}
+  .view{display:none}
+  .view.active{display:block}
+
+  @media(min-width:520px){.container{padding:24px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-brand">
+      <div class="header-icon"><svg width="32" height="32" viewBox="0 0 180 180"><defs><linearGradient id="hi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4637a"/><stop offset="100%" stop-color="#9a6ab8"/></linearGradient></defs><rect width="180" height="180" rx="40" fill="#151521"/><rect x="38" y="58" width="16" height="64" rx="5" fill="url(#hi)"/><rect x="50" y="66" width="10" height="48" rx="3" fill="url(#hi)" opacity=".7"/><rect x="56" y="83" width="68" height="14" rx="7" fill="url(#hi)" opacity=".5"/><rect x="120" y="66" width="10" height="48" rx="3" fill="url(#hi)" opacity=".7"/><rect x="126" y="58" width="16" height="64" rx="5" fill="url(#hi)"/></svg></div>
+      <div class="header-title">Hyrox Prep</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:12px;color:var(--text-muted)">6-Week Plan</span>
+      <span style="font-size:10px;color:var(--text-dim);border:1px solid var(--border);padding:2px 8px;border-radius:10px;cursor:pointer" onclick="exportData()">Export</span>
+      <label style="font-size:10px;color:var(--text-dim);border:1px solid var(--border);padding:2px 8px;border-radius:10px;cursor:pointer">Import<input type="file" accept=".json" style="display:none" onchange="importData(this)"></label>
+    </div>
+  </div>
+
+  <div id="trainView" class="view active">
+    <div class="hero">
+      <div class="hero-sub" id="greeting"></div>
+      <div class="hero-main" id="heroText">Train for Hyrox</div>
+      <div class="hero-detail">Hyrox Male Doubles &middot; 1 May 2026</div>
+    </div>
+
+    <div class="countdown-row" id="statsRow">
+      <div class="countdown-item"><div class="ci-val" id="daysLeft">--</div><div class="ci-label">Days Left</div></div>
+      <div class="countdown-item"><div class="ci-val" id="sessionsComplete">0</div><div class="ci-label">Sessions Done</div></div>
+      <div class="countdown-item"><div class="ci-val" id="overallPct">0%</div><div class="ci-label">Complete</div></div>
+    </div>
+
+    <div style="margin:20px 0 12px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:14px;font-weight:600">Select Week</div>
+      <div id="weekLabel" style="font-size:12px;color:var(--text-muted)"></div>
+    </div>
+    <div class="week-tabs" id="weekTabs"></div>
+    <div id="daysContainer"></div>
+  </div>
+  <div id="progressView" class="view">
+    <div style="padding:20px 0">
+      <div class="hero-main" style="font-size:20px;margin-bottom:16px">Progress</div>
+      <div id="progressContent"></div>
+    </div>
+  </div>
+</div>
+<div class="rest-pill" id="restPill" style="display:none" onclick="toggleTimer()">
+  <span class="timer-btn" id="timerBtn">&#9654;</span>
+  <span class="timer-val" id="timerVal">1:30</span>
+  <span class="timer-cog" onclick="event.stopPropagation();toggleRestConfig()">&#9881;</span>
+</div>
+<div class="rest-config" id="restConfig">
+  <div class="rest-opt" onclick="setRestDuration(30)">30s</div>
+  <div class="rest-opt" onclick="setRestDuration(60)">60s</div>
+  <div class="rest-opt" onclick="setRestDuration(90)">90s</div>
+  <div class="rest-opt" onclick="setRestDuration(120)">2m</div>
+  <div class="rest-opt" onclick="setRestDuration(150)">2:30</div>
+  <div class="rest-opt" onclick="setRestDuration(180)">3m</div>
+</div>
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="switchTab('train')" id="navTrain">
+    <div class="nav-icon">&#127947;&#65039;</div>
+    <div class="nav-label">Train</div>
+  </div>
+  <div class="nav-item" onclick="switchTab('progress')" id="navProgress">
+    <div class="nav-icon">&#128202;</div>
+    <div class="nav-label">Progress</div>
+  </div>
+</div>
+
+<script>
+// ─── EDITING THIS PLAN ─────────────────────────────────────────
+// To ADD an exercise: push {text, detail, amrap?} to the end of
+//   a section's exercises array. Existing state is unaffected.
+// To REMOVE an exercise: splice it out. State for exercises after
+//   the removed one in that section will be orphaned. Clear with:
+//   localStorage.removeItem('hyrox-prep-v2') to reset all data.
+// To RENAME: just change text/detail. Type detection is automatic.
+// Exercise types are auto-detected from text + detail strings.
+//   See parseEx() for the classification logic.
+// ────────────────────────────────────────────────────────────────
+
+// ─── Training Data ──────────────────────────────────────────────
+const PLAN = {
+  weeks: [
+    // WEEK 1
+    { id:1, label:"Week 1", subtitle:"Wendler 5s / Cycle 1", dates:"Mar 23-29",
+      days:[
+        { date:"Mon 23 Mar", title:"Wendler Bench (5s) + Hyrox Stations A", type:"bench",
+          sections:[
+            { name:"Shoulder Prehab", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler Bench - 5s Week", exercises:[
+              {text:"Warm-up: 5 x 40kg, 5 x 60kg, 5 x 80kg",detail:""},
+              {text:"Set 1: 65kg x 5",detail:""},
+              {text:"Set 2: 75kg x 5",detail:""},
+              {text:"Set 3: 87kg x 5+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations A (~15-20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"3 x 15 (focus on rhythm, 60s rest)"},
+              {text:"Sled Push",detail:"3 x 25m (moderate load, walk back recovery)"},
+              {text:"Farmers Carry",detail:"2 x 50m (24kg each hand)"}
+            ]}
+          ]
+        },
+        { date:"Tue 24 Mar", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Incline Walking Intervals (~30-35 min)", exercises:[
+              {text:"Flat walk warm-up",detail:"5 min"},
+              {text:"Incline walking (max incline, Zone 2-3)",detail:"20 min (speak in short sentences but not comfortably)"},
+              {text:"Faster pace at top incline (Zone 3-4)",detail:"5 x 1 min (1 min easy between efforts)"},
+              {text:"Flat walk cool down",detail:"5 min"}
+            ]},
+            { name:"CrossFit Skill: Pull-up / Muscle-up", exercises:[
+              {text:"Strict Pull-ups",detail:"5 x 3 (full ROM, controlled descent)"},
+              {text:"Scapular Pull-ups",detail:"3 x 8"},
+              {text:"Banded Strict Pull-ups",detail:"3 x 5 (slow negative 3s)"},
+              {text:"Ring Rows (feet elevated)",detail:"3 x 10"}
+            ]}
+          ]
+        },
+        { date:"Wed 25 Mar", title:"Rest Day", type:"rest",
+          sections:[
+            { name:"Rest Day", exercises:[
+              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+            ]}
+          ]
+        },
+        { date:"Thu 26 Mar", title:"Wendler OHP (5s) + Hyrox Stations B", type:"ohp",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler OHP - 5s Week", exercises:[
+              {text:"Warm-up: Bar x 10, 27kg x 5, 36kg x 3",detail:""},
+              {text:"Set 1: 45kg x 5",detail:""},
+              {text:"Set 2: 50kg x 5",detail:""},
+              {text:"Set 3: 57.5kg x 5+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations B (~15-20 min)", exercises:[
+              {text:"Sled Pull",detail:"3 x 25m (moderate load, walk back recovery)"},
+              {text:"SkiErg",detail:"3 x 250m (moderate pace, 90s rest)"},
+              {text:"Sandbag Carry",detail:"3 x 50m (20kg, steady pace)"}
+            ]}
+          ]
+        },
+        { date:"Fri 27 Mar", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Bike",detail:"25 min Zone 2 (steady state)"},
+              {text:"Row",detail:"3 x 3 min (Zone 3, 90s rest)"},
+              {text:"SkiErg",detail:"5 min Zone 2"}
+            ]},
+            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
+              {text:"Single-Single-Double drill",detail:"5 x 10"},
+              {text:"Ring Support Hold",detail:"3 x 20s (turnout at top)"},
+              {text:"Ring Dips (band assisted if needed)",detail:"3 x 5"}
+            ]}
+          ]
+        },
+        { date:"Sat 28 Mar", title:"Hyrox Mixed Simulation", type:"simulation",
+          sections:[
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Hyrox Simulation (~30-40 min)", exercises:[
+              {text:"SkiErg",detail:"4 x 500m (moderate pace, 2 min rest)"},
+              {text:"Wall Balls (9kg)",detail:"100 reps for time (break as needed)"},
+              {text:"Sled Push + Pull combo",detail:"3 x 25m each (moderate load)"},
+              {text:"Farmers Carry",detail:"2 x 100m (24kg each hand)"}
+            ]}
+          ]
+        }
+      ]
+    },
+    // WEEK 2
+    { id:2, label:"Week 2", subtitle:"Wendler 3s / Cycle 1", dates:"Mar 30 - Apr 5",
+      days:[
+        { date:"Mon 30 Mar", title:"Wendler Bench (3s) + Hyrox Stations A", type:"bench",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler Bench - 3s Week", exercises:[
+              {text:"Warm-up: Bar x 10, 44kg x 5, 58kg x 3",detail:""},
+              {text:"Set 1: 72.5kg x 3",detail:""},
+              {text:"Set 2: 85kg x 3",detail:""},
+              {text:"Set 3: 95kg x 3+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations A (~15-20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"4 x 15 (focus on rhythm, 60s rest)"},
+              {text:"Sled Push",detail:"3 x 25m (moderate load, walk back recovery)"},
+              {text:"Farmers Carry",detail:"3 x 50m (24kg each hand)"}
+            ]}
+          ]
+        },
+        { date:"Tue 31 Mar", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Row",detail:"20 min Zone 2 (consistent split)"},
+              {text:"SkiErg",detail:"10 min Zone 2-3"},
+              {text:"Bike",detail:"10 min Zone 2 (cool down)"}
+            ]},
+            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"5 x 4 (full ROM, controlled)"},
+              {text:"Chest-to-Bar Pull-up attempts (strict)",detail:"5 x 2"},
+              {text:"Scapular Pull-ups",detail:"3 x 8"},
+              {text:"Ring Rows (feet elevated)",detail:"3 x 10"}
+            ]}
+          ]
+        },
+        { date:"Wed 1 Apr", title:"Rest Day", type:"rest",
+          sections:[
+            { name:"Rest Day", exercises:[
+              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+            ]}
+          ]
+        },
+        { date:"Thu 2 Apr", title:"Wendler OHP (3s) + Hyrox Stations B", type:"ohp",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler OHP - 3s Week", exercises:[
+              {text:"Warm-up: Bar x 10, 29kg x 5, 38kg x 3",detail:""},
+              {text:"Set 1: 47.5kg x 3",detail:""},
+              {text:"Set 2: 55kg x 3",detail:""},
+              {text:"Set 3: 60kg x 3+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations B (~15-20 min)", exercises:[
+              {text:"Sled Pull",detail:"3 x 25m (moderate load, walk back recovery)"},
+              {text:"SkiErg",detail:"3 x 250m (moderate pace, 90s rest)"},
+              {text:"Sandbag Carry",detail:"3 x 50m (20kg, steady pace)"}
+            ]}
+          ]
+        },
+        { date:"Fri 3 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Bike",detail:"25 min Zone 2 (steady state)"},
+              {text:"Row",detail:"3 x 3 min (Zone 3, 90s rest)"},
+              {text:"SkiErg",detail:"5 min Zone 2"}
+            ]},
+            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 25 (60s rest)"},
+              {text:"Unbroken Double Under attempts",detail:"5 x max"},
+              {text:"Ring Support Hold",detail:"3 x 25s"},
+              {text:"Ring Dips",detail:"4 x 5"}
+            ]}
+          ]
+        },
+        { date:"Sat 4 Apr", title:"Hyrox Mixed Simulation", type:"simulation",
+          sections:[
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Hyrox Simulation (~30-40 min)", exercises:[
+              {text:"SkiErg",detail:"4 x 500m (moderate pace, 2 min rest)"},
+              {text:"Wall Balls (9kg)",detail:"100 reps for time (break as needed)"},
+              {text:"Sled Push + Pull combo",detail:"3 x 25m each (moderate load)"},
+              {text:"Farmers Carry",detail:"2 x 100m (24kg each hand)"}
+            ]}
+          ]
+        }
+      ]
+    },
+    // WEEK 3
+    { id:3, label:"Week 3", subtitle:"Wendler 1s / Cycle 1", dates:"Apr 6-12",
+      days:[
+        { date:"Mon 6 Apr", title:"Wendler Bench (1s) + Hyrox Stations A", type:"bench",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler Bench - 1s Week", exercises:[
+              {text:"Warm-up: Bar x 10, 48kg x 5, 64kg x 3",detail:""},
+              {text:"Set 1: 80kg x 5",detail:""},
+              {text:"Set 2: 90kg x 3",detail:""},
+              {text:"Set 3: 100kg x 1+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations A (~15-20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
+              {text:"Sled Push",detail:"4 x 25m (competition load, 90s rest)"},
+              {text:"Farmers Carry",detail:"4 x 50m (28kg each hand)"}
+            ]}
+          ]
+        },
+        { date:"Tue 7 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Row",detail:"4 x 500m (Zone 3-4, 90s rest)"},
+              {text:"SkiErg",detail:"3 x 3 min (Zone 3, 90s rest)"},
+              {text:"Bike",detail:"10 min Zone 2"}
+            ]},
+            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"4 x 5"},
+              {text:"Chest-to-Bar Pull-up attempts (strict)",detail:"5 x 3"},
+              {text:"Bar Muscle-Up negative",detail:"5 x 1 (slow 5s descent)"},
+              {text:"Hip-to-Bar drill (band assisted)",detail:"3 x 5"}
+            ]}
+          ]
+        },
+        { date:"Wed 8 Apr", title:"Rest Day", type:"rest",
+          sections:[
+            { name:"Rest Day", exercises:[
+              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+            ]}
+          ]
+        },
+        { date:"Thu 9 Apr", title:"Wendler OHP (1s) + Hyrox Stations B", type:"ohp",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler OHP - 1s Week", exercises:[
+              {text:"Warm-up: Bar x 10, 30kg x 5, 40kg x 3",detail:""},
+              {text:"Set 1: 50kg x 5",detail:""},
+              {text:"Set 2: 57.5kg x 3",detail:""},
+              {text:"Set 3: 65kg x 1+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations B (~15-20 min)", exercises:[
+              {text:"Sled Pull",detail:"4 x 25m (competition load, 90s rest)"},
+              {text:"SkiErg",detail:"4 x 250m (race pace, 60s rest)"},
+              {text:"Sandbag Carry",detail:"4 x 50m (20kg, 60s rest)"}
+            ]}
+          ]
+        },
+        { date:"Fri 10 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Bike",detail:"5 x 3 min (Zone 3-4, 60s rest)"},
+              {text:"Row",detail:"3 x 750m (Zone 3, 2 min rest)"},
+              {text:"SkiErg",detail:"5 min Zone 2"}
+            ]},
+            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
+              {text:"Double Unders",detail:"4 x 30 (50s rest)"},
+              {text:"Double Under EMOM",detail:"8 min (15 DU per min)"},
+              {text:"Ring Dips",detail:"4 x 6"},
+              {text:"Ring Muscle-Up transition drill (low rings)",detail:"5 x 3"}
+            ]}
+          ]
+        },
+        { date:"Sat 11 Apr", title:"Hyrox Mixed Simulation", type:"simulation",
+          sections:[
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Hyrox Simulation (~30-40 min)", exercises:[
+              {text:"SkiErg",detail:"3 x 750m (progressive effort, 2 min rest)"},
+              {text:"Wall Balls (9kg)",detail:"100 reps for time (target sub-5 min)"},
+              {text:"Sled Push + Pull combo",detail:"4 x 25m each (competition load)"},
+              {text:"Sandbag Carry",detail:"3 x 50m (20kg)"},
+              {text:"Farmers Carry",detail:"2 x 100m (28kg each hand)"}
+            ]}
+          ]
+        }
+      ]
+    },
+    // WEEK 4
+    { id:4, label:"Week 4", subtitle:"Deload", dates:"Apr 13-19",
+      days:[
+        { date:"Mon 13 Apr", title:"Wendler Bench (Deload) + Hyrox Stations A", type:"bench",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler Bench - Deload Week", exercises:[
+              {text:"Warm-up: Bar x 10, 26kg x 5, 34kg x 3",detail:""},
+              {text:"Set 1: 42.5kg x 5",detail:""},
+              {text:"Set 2: 52.5kg x 5",detail:""},
+              {text:"Set 3: 62.5kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Stations A (~15-20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
+              {text:"Sled Push",detail:"4 x 25m (competition load, 90s rest)"},
+              {text:"Farmers Carry",detail:"4 x 50m (28kg each hand)"}
+            ]}
+          ]
+        },
+        { date:"Tue 14 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Row",detail:"4 x 500m (Zone 3-4, 90s rest)"},
+              {text:"SkiErg",detail:"3 x 3 min (Zone 3, 90s rest)"},
+              {text:"Bike",detail:"10 min Zone 2"}
+            ]},
+            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"3 x 5 (deload)"},
+              {text:"Chest-to-Bar strict",detail:"3 x 3"},
+              {text:"Bar Muscle-Up negative",detail:"3 x 1 (slow controlled)"},
+              {text:"Scapular Pull-ups",detail:"2 x 8"}
+            ]}
+          ]
+        },
+        { date:"Wed 15 Apr", title:"Rest Day", type:"rest",
+          sections:[
+            { name:"Rest Day", exercises:[
+              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+            ]}
+          ]
+        },
+        { date:"Thu 16 Apr", title:"Wendler OHP (Deload) + Hyrox Stations B", type:"ohp",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler OHP - Deload Week", exercises:[
+              {text:"Warm-up: Bar x 10, 17kg x 5, 22kg x 3",detail:""},
+              {text:"Set 1: 27.5kg x 5",detail:""},
+              {text:"Set 2: 35kg x 5",detail:""},
+              {text:"Set 3: 40kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Stations B (~15-20 min)", exercises:[
+              {text:"Sled Pull",detail:"4 x 25m (competition load, 90s rest)"},
+              {text:"SkiErg",detail:"4 x 250m (race pace, 60s rest)"},
+              {text:"Sandbag Carry",detail:"4 x 50m (20kg, 60s rest)"}
+            ]}
+          ]
+        },
+        { date:"Fri 17 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Bike",detail:"5 x 3 min (Zone 3-4, 60s rest)"},
+              {text:"Row",detail:"3 x 750m (Zone 3, 2 min rest)"},
+              {text:"SkiErg",detail:"5 min Zone 2"}
+            ]},
+            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
+              {text:"Double Unders",detail:"3 x 20 (easy pace)"},
+              {text:"Ring Support Hold",detail:"2 x 20s"},
+              {text:"Ring Dips",detail:"3 x 5 (light)"}
+            ]}
+          ]
+        },
+        { date:"Sat 18 Apr", title:"Hyrox Mixed Simulation", type:"simulation",
+          sections:[
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Hyrox Simulation (~30-40 min)", exercises:[
+              {text:"SkiErg",detail:"3 x 750m (progressive effort, 2 min rest)"},
+              {text:"Wall Balls (9kg)",detail:"100 reps for time (target sub-5 min)"},
+              {text:"Sled Push + Pull combo",detail:"4 x 25m each (competition load)"},
+              {text:"Sandbag Carry",detail:"3 x 50m (20kg)"},
+              {text:"Farmers Carry",detail:"2 x 100m (28kg each hand)"}
+            ]}
+          ]
+        }
+      ]
+    },
+    // WEEK 5
+    { id:5, label:"Week 5", subtitle:"Wendler 5s / Cycle 2", dates:"Apr 20-26",
+      days:[
+        { date:"Mon 20 Apr", title:"Wendler Bench (5s) + Hyrox Stations A", type:"bench",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler Bench - 5s Week", exercises:[
+              {text:"Warm-up: Bar x 10, 42kg x 5, 56kg x 3",detail:""},
+              {text:"Set 1: 70kg x 5",detail:""},
+              {text:"Set 2: 80kg x 5",detail:""},
+              {text:"Set 3: 92.5kg x 5+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations A (~15-20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"4 x 25 (45s rest)"},
+              {text:"Sled Push",detail:"4 x 25m (competition load, 60s rest)"},
+              {text:"Farmers Carry",detail:"3 x 75m (28kg each hand)"}
+            ]}
+          ]
+        },
+        { date:"Tue 21 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Row",detail:"5 x 500m (Zone 4, 75s rest)"},
+              {text:"SkiErg",detail:"4 x 3 min (Zone 3-4, 60s rest)"},
+              {text:"Bike",detail:"5 min easy"}
+            ]},
+            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"4 x 5"},
+              {text:"Chest-to-Bar strict",detail:"4 x 3"},
+              {text:"Bar Muscle-Up attempt",detail:"3 x 1 (full rep, focus on turnover)"},
+              {text:"Hip-to-Bar drill (minimal band)",detail:"4 x 3"}
+            ]}
+          ]
+        },
+        { date:"Wed 22 Apr", title:"Rest Day", type:"rest",
+          sections:[
+            { name:"Rest Day", exercises:[
+              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+            ]}
+          ]
+        },
+        { date:"Thu 23 Apr", title:"Wendler OHP (5s) + Hyrox Stations B", type:"ohp",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler OHP - 5s Week", exercises:[
+              {text:"Warm-up: Bar x 10, 27kg x 5, 36kg x 3",detail:""},
+              {text:"Set 1: 45kg x 5",detail:""},
+              {text:"Set 2: 52.5kg x 5",detail:""},
+              {text:"Set 3: 60kg x 5+",detail:"AMRAP",amrap:true}
+            ]},
+            { name:"Hyrox Stations B (~15-20 min)", exercises:[
+              {text:"Sled Pull",detail:"4 x 25m (competition load, 60s rest)"},
+              {text:"SkiErg",detail:"4 x 300m (race pace, 60s rest)"},
+              {text:"Sandbag Carry",detail:"3 x 75m (20kg, 60s rest)"}
+            ]}
+          ]
+        },
+        { date:"Fri 24 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Bike",detail:"6 x 2 min (Zone 4, 60s rest)"},
+              {text:"Row",detail:"4 x 500m (Zone 4, 90s rest)"}
+            ]},
+            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
+              {text:"Double Unders",detail:"4 x 35 (45s rest)"},
+              {text:"Double Under EMOM",detail:"10 min (20 DU per min)"},
+              {text:"Ring Dips",detail:"4 x 6"},
+              {text:"Ring Muscle-Up transition drill (low rings)",detail:"5 x 3"}
+            ]}
+          ]
+        },
+        { date:"Sat 25 Apr", title:"Hyrox Full Simulation", type:"simulation",
+          sections:[
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Full Hyrox Simulation (no run)", exercises:[
+              {text:"All 8 stations back-to-back",detail:"race-pace effort throughout"},
+              {text:"2 min SkiErg or Row between each station",detail:"transition conditioning"}
+            ]}
+          ]
+        }
+      ]
+    },
+    // WEEK 6
+    { id:6, label:"Week 6", subtitle:"Race Week / Taper", dates:"Apr 27 - May 1",
+      days:[
+        { date:"Mon 27 Apr", title:"Wendler Bench (Deload) + Hyrox Stations A", type:"bench",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler Bench - Deload Week", exercises:[
+              {text:"Warm-up: Bar x 10, 26kg x 5, 34kg x 3",detail:""},
+              {text:"Set 1: 42.5kg x 5",detail:""},
+              {text:"Set 2: 55kg x 5",detail:""},
+              {text:"Set 3: 65kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Stations A (~15-20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"3 x 15 (technique focus, 90s rest)"},
+              {text:"Sled Push",detail:"2 x 25m (light, smooth)"},
+              {text:"Farmers Carry",detail:"2 x 50m (24kg each hand)"}
+            ]}
+          ]
+        },
+        { date:"Tue 28 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
+              {text:"Row",detail:"3 x 500m (Zone 3, 2 min rest)"},
+              {text:"SkiErg",detail:"2 x 3 min (Zone 2-3, 2 min rest)"},
+              {text:"Bike",detail:"10 min Zone 1-2"}
+            ]},
+            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"3 x 3 (light, prime the body)"},
+              {text:"Chest-to-Bar strict",detail:"2 x 3"},
+              {text:"Mobility work and hang practice",detail:"easy"}
+            ]}
+          ]
+        },
+        { date:"Wed 29 Apr", title:"Rest Day", type:"rest",
+          sections:[
+            { name:"Rest Day", exercises:[
+              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+            ]}
+          ]
+        },
+        { date:"Thu 30 Apr", title:"Wendler OHP (Deload) + Hyrox Stations B", type:"ohp",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
+              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps",detail:"3 x 10"}
+            ]},
+            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            ]},
+            { name:"Wendler OHP - Deload Week", exercises:[
+              {text:"Warm-up: Bar x 10, 17kg x 5, 22kg x 3",detail:""},
+              {text:"Set 1: 27.5kg x 5",detail:""},
+              {text:"Set 2: 35kg x 5",detail:""},
+              {text:"Set 3: 42.5kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Stations B (~15-20 min)", exercises:[
+              {text:"Sled Pull",detail:"2 x 25m (light, smooth)"},
+              {text:"SkiErg",detail:"2 x 250m (easy pace)"},
+              {text:"Sandbag Carry",detail:"2 x 50m (light)"}
+            ]}
+          ]
+        },
+        { date:"Fri 1 May", title:"RACE DAY - HYROX MALE DOUBLES", type:"raceday",
+          sections:[
+            { name:"Pre-Race", exercises:[
+              {text:"Light knee rehab (activation exercises only)",detail:"10 min"},
+              {text:"Dynamic warm-up + light SkiErg",detail:"3 min"},
+              {text:"Hydrate well, carb load 24-48 hours prior",detail:""}
+            ]},
+            { name:"Race Strategy", exercises:[
+              {text:"Pace first 4 stations, push last 4",detail:""},
+              {text:"Record your finish time",detail:"Use notes below"},
+              {text:"Record station splits",detail:"Use notes below"},
+              {text:"Lessons learned",detail:"Use notes below"}
+            ]}
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+
+// ─── State Management ───────────────────────────────────────────
+const STORAGE_KEY = 'hyrox-prep-v2';
+let state = loadState();
+let currentWeek = findCurrentWeek();
+const expandedDays = new Set(); // track which day cards are expanded across renders
+
+function loadState(){
+  try{
+    let raw = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(raw) return {sets:raw.sets||{}, notes:raw.notes||{}, feel:raw.feel||{}, restTimer:raw.restTimer||90};
+    const v1 = JSON.parse(localStorage.getItem('hyrox-prep-v1'));
+    if(v1 && v1.notes){
+      const notes={};
+      Object.keys(v1.notes).forEach(k=>{ notes[k.replace('note-','n-')]=v1.notes[k] });
+      return {sets:{}, notes, feel:{}, restTimer:90};
+    }
+    return {sets:{}, notes:{}, feel:{}, restTimer:90};
+  }catch(e){ return {sets:{}, notes:{}, feel:{}, restTimer:90} }
+}
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)) }
+function sKey(wk,di,si,ei,seti){ return `${wk}-${di}-${si}-${ei}-${seti}` }
+function noteKey(wk,di){ return `n-${wk}-${di}` }
+function getSD(key){ return state.sets[key]||{done:false,v1:'',v2:''} }
+
+function findCurrentWeek(){
+  const today = new Date();
+  const ws = [new Date(2026,2,23),new Date(2026,2,30),new Date(2026,3,6),
+    new Date(2026,3,13),new Date(2026,3,20),new Date(2026,3,27)];
+  for(let i=ws.length-1;i>=0;i--){ if(today>=ws[i]) return i }
+  return 0;
+}
+
+// ─── Exercise Parsing ───────────────────────────────────────────
+// Classifies each exercise and returns set structure for rendering.
+// Types: wendler, warmup, weighted, reps, hold, distance, cardio, fortime, check
+function parseEx(text, detail, amrap){
+  detail = detail||'';
+  // Wendler working set: "Set N: Wkg x R" or "Set N: Wkg x R+"
+  if(/^Set \d/.test(text)){
+    const m = text.match(/(\d+\.?\d*)kg\s*x\s*(\d+)\+?/);
+    const isAm = amrap || /\+\s*$/.test(text.replace(/\(.*\)/,''));
+    return {type:'wendler', n:1, per:[{w:m?parseFloat(m[1]):0, r:m?parseInt(m[2]):0}], amrap:isAm};
+  }
+  // Warm-up line: "Warm-up: ..."
+  if(/^Warm-up/i.test(text)){
+    const parts = text.replace(/^Warm-up:\s*/i,'').split(',').map(s=>s.trim());
+    return {type:'warmup', n:parts.length, per:parts.map(p=>({label:p})), amrap:false};
+  }
+  // Weighted barbell/machine exercises
+  if(/Romanian Deadlift|Leg Press|Modified Box Squat/i.test(text)){
+    const m = detail.match(/^(\d+)\s*x\s*(\d+)/);
+    const sets=m?parseInt(m[1]):1, reps=m?parseInt(m[2]):0;
+    return {type:'weighted', n:sets, per:Array(sets).fill(null).map(()=>({r:reps})), amrap:false};
+  }
+  // For-time: "100 reps for time"
+  if(/for time/i.test(detail)){
+    return {type:'fortime', n:1, per:[{}], amrap:false};
+  }
+  // Cardio with sets: "3 x 3 min" — must check before generic reps
+  const csm = detail.match(/^(\d+)\s*x\s*(\d+)\s*min/i);
+  if(csm){
+    const sets=parseInt(csm[1]);
+    return {type:'cardio', n:sets, per:Array(sets).fill(null).map(()=>({})), amrap:false};
+  }
+  // Cardio single: "20 min Zone 2", "5 min", EMOM
+  if(/^\d+\s*min\b/i.test(detail) || /EMOM/i.test(detail) || /EMOM/i.test(text)){
+    return {type:'cardio', n:1, per:[{}], amrap:false};
+  }
+  // Timed holds: "3 x 15s"
+  const hm = detail.match(/^(\d+)\s*x\s*(\d+)s\b/);
+  if(hm){
+    const sets=parseInt(hm[1]), secs=parseInt(hm[2]);
+    return {type:'hold', n:sets, per:Array(sets).fill(null).map(()=>({s:secs})), amrap:false};
+  }
+  // Distance sets: "3 x 25m", "4 x 500m"
+  const dm = detail.match(/^(\d+)\s*x\s*(\d+)m\b/);
+  if(dm){
+    const sets=parseInt(dm[1]), dist=dm[2]+'m';
+    return {type:'distance', n:sets, per:Array(sets).fill(null).map(()=>({label:dist})), amrap:false};
+  }
+  // Max reps: "5 x max"
+  if(/x\s*max/i.test(detail)){
+    const m=detail.match(/^(\d+)\s*x/);
+    const sets=m?parseInt(m[1]):1;
+    return {type:'reps', n:sets, per:Array(sets).fill(null).map(()=>({r:null})), amrap:false};
+  }
+  // Standard reps: "3 x 8", "2 x 4r", "5 x 3 (...)"
+  const rm = detail.match(/^(\d+)\s*x\s*(\d+)r?\b/);
+  if(rm){
+    const sets=parseInt(rm[1]), reps=parseInt(rm[2]);
+    return {type:'reps', n:sets, per:Array(sets).fill(null).map(()=>({r:reps})), amrap:false};
+  }
+  // Default: single check
+  return {type:'check', n:1, per:[{}], amrap:false};
+}
+
+// Check if all sets of an exercise are done
+function isExDone(wk,di,si,ei){
+  const week = PLAN.weeks.find(w=>w.id===wk);
+  const ex = week.days[di].sections[si].exercises[ei];
+  const p = parseEx(ex.text, ex.detail, ex.amrap);
+  for(let i=0;i<p.n;i++){ if(!getSD(sKey(wk,di,si,ei,i)).done) return false }
+  return p.n>0;
+}
+
+// Epley e1RM: weight * (1 + reps/30)
+function epley(w,r){
+  w=parseFloat(w); r=parseInt(r);
+  if(!w||!r||r<1) return null;
+  if(r===1) return w;
+  return w*(1+r/30);
+}
+
+// ─── Previous Performance Lookup ────────────────────────────────
+function findPrevData(wk,di,si,ei){
+  const weekIdx=PLAN.weeks.findIndex(w=>w.id===wk);
+  if(weekIdx<=0) return null;
+  const prevWeek=PLAN.weeks[weekIdx-1];
+  const curWeek=PLAN.weeks.find(w=>w.id===wk);
+  const curEx=curWeek.days[di].sections[si].exercises[ei];
+  const curName=curEx.text;
+  const curP=parseEx(curEx.text,curEx.detail,curEx.amrap);
+  if(curP.type==='check'||curP.type==='cardio'||curP.type==='warmup'||curP.type==='distance') return null;
+
+  if(di>=prevWeek.days.length) return null;
+  const prevDay=prevWeek.days[di];
+  for(let psi=0;psi<prevDay.sections.length;psi++){
+    for(let pei=0;pei<prevDay.sections[psi].exercises.length;pei++){
+      if(prevDay.sections[psi].exercises[pei].text===curName){
+        const pp=parseEx(prevDay.sections[psi].exercises[pei].text,prevDay.sections[psi].exercises[pei].detail,prevDay.sections[psi].exercises[pei].amrap);
+        let best=null;
+        for(let s=0;s<pp.n;s++){
+          const sd=getSD(sKey(prevWeek.id,di,psi,pei,s));
+          if(!sd.done) continue;
+          if(!best) best=sd;
+          else{
+            if(pp.type==='wendler'||pp.type==='weighted'){
+              const eCur=epley(sd.v1,sd.v2), eBest=epley(best.v1,best.v2);
+              if(eCur&&(!eBest||eCur>eBest)) best=sd;
+            } else if(pp.type==='reps'){
+              if(parseInt(sd.v1)>parseInt(best.v1||0)) best=sd;
+            } else if(pp.type==='hold'){
+              if(parseInt(sd.v1)>parseInt(best.v1||0)) best=sd;
+            } else if(pp.type==='fortime'){
+              if(sd.v1 && (!best.v1 || sd.v1<best.v1)) best=sd;
+            }
+          }
+        }
+        if(!best||!best.done) return null;
+        return {type:pp.type, data:best, amrap:prevDay.sections[psi].exercises[pei].amrap};
+      }
+    }
+  }
+  return null;
+}
+
+// ─── Rendering ──────────────────────────────────────────────────
+function render(){
+  renderGreeting();
+  renderStats();
+  renderWeekTabs();
+  renderDays();
+}
+
+function renderGreeting(){
+  const h = new Date().getHours();
+  const g = h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  document.getElementById('greeting').textContent = g+', Tom';
+  const race = new Date(2026,4,1), now = new Date();
+  document.getElementById('daysLeft').textContent = Math.max(0,Math.ceil((race-now)/(864e5)));
+  document.getElementById('heroText').textContent = PLAN.weeks[currentWeek].subtitle;
+}
+
+function renderStats(){
+  let totalEx=0,doneEx=0,sessionsDone=0;
+  PLAN.weeks.forEach(w=>{
+    w.days.forEach((d,di)=>{
+      let dt=0,dd=0;
+      d.sections.forEach((s,si)=>{
+        s.exercises.forEach((e,ei)=>{
+          dt++;totalEx++;
+          if(isExDone(w.id,di,si,ei)){dd++;doneEx++}
+        });
+      });
+      if(dt>0&&dd===dt) sessionsDone++;
+    });
+  });
+  document.getElementById('sessionsComplete').textContent = sessionsDone;
+  document.getElementById('overallPct').textContent = totalEx?Math.round(doneEx/totalEx*100)+'%':'0%';
+}
+
+function renderWeekTabs(){
+  const c = document.getElementById('weekTabs');
+  c.innerHTML = '';
+  PLAN.weeks.forEach((w,i)=>{
+    const pct = getWeekPct(w);
+    const tab = document.createElement('div');
+    tab.className = 'week-tab'+(i===currentWeek?' active':'');
+    tab.innerHTML = `${w.label}<span class="wt-pct">${pct}%</span>`;
+    tab.onclick = ()=>{ currentWeek=i; expandedDays.clear(); render() };
+    c.appendChild(tab);
+  });
+  document.getElementById('weekLabel').textContent = PLAN.weeks[currentWeek].dates;
+}
+
+function getWeekPct(week){
+  let t=0,d=0;
+  week.days.forEach((dy,di)=>{
+    dy.sections.forEach((s,si)=>{
+      s.exercises.forEach((e,ei)=>{ t++; if(isExDone(week.id,di,si,ei)) d++ });
+    });
+  });
+  return t?Math.round(d/t*100):0;
+}
+
+function getDayPct(wk,di,day){
+  let t=0,d=0;
+  day.sections.forEach((s,si)=>{
+    s.exercises.forEach((e,ei)=>{ t++; if(isExDone(wk,di,si,ei)) d++ });
+  });
+  return {total:t,done:d,pct:t?Math.round(d/t*100):0};
+}
+
+function renderDays(){
+  const container = document.getElementById('daysContainer');
+  container.innerHTML = '';
+  const week = PLAN.weeks[currentWeek];
+
+  week.days.forEach((day,dayIdx)=>{
+    const {total,done,pct} = getDayPct(week.id, dayIdx, day);
+    const isRD = day.type==='raceday';
+    const card = document.createElement('div');
+    const dayKey=week.id+'-'+dayIdx;
+    // On first load, expand today. After that, preserve user's expanded state.
+    if(expandedDays.size===0 && isToday(day.date)) expandedDays.add(dayKey);
+    card.className = 'day-card'+(expandedDays.has(dayKey)?' expanded':'');
+    card.innerHTML = `
+      <div class="day-header" onclick="toggleDay(this,'${dayKey}')">
+        <div class="day-header-left">
+          <div class="day-date">${day.date}${isToday(day.date)?' &middot; TODAY':''}</div>
+          <div class="day-title">${isRD?'🏁 '+day.title:day.title}</div>
+          <div class="progress-mini"><div class="progress-mini-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="day-progress">
+          <div class="${pct===100?'day-pct complete':'day-pct'}">${done}/${total}</div>
+          <div class="day-chevron">▼</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="feel-row">
+          <span class="feel-label">Before</span>
+          ${['Terrible','Low','Okay','Good','Great'].map((l,i)=>
+            `<div class="feel-opt ${(state.feel['f-'+week.id+'-'+dayIdx+'-pre']||0)===i+1?'sel':''}" onclick="setFeel(${week.id},${dayIdx},'pre',${i+1})">${l}</div>`
+          ).join('')}
+        </div>
+        ${day.sections.map((sec,si)=>renderSection(week.id,dayIdx,si,sec)).join('')}
+        <div class="feel-row">
+          <span class="feel-label">After</span>
+          ${['Terrible','Low','Okay','Good','Great'].map((l,i)=>
+            `<div class="feel-opt ${(state.feel['f-'+week.id+'-'+dayIdx+'-post']||0)===i+1?'sel':''}" onclick="setFeel(${week.id},${dayIdx},'post',${i+1})">${l}</div>`
+          ).join('')}
+        </div>
+        <div class="notes-area">
+          <div class="notes-label">Session Notes</div>
+          <textarea placeholder="Log weights, times, how it felt..."
+            oninput="saveNote(${week.id},${dayIdx},this.value)">${state.notes[noteKey(week.id,dayIdx)]||''}</textarea>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function renderSection(wk,di,si,sec){
+  return `<div class="section">
+    <div class="section-header">
+      <span>${sec.name}</span>
+      <span class="section-toggle" onclick="event.stopPropagation();toggleSection(${wk},${di},${si})">All ✓</span>
+    </div>
+    ${sec.exercises.map((ex,ei)=>renderExercise(wk,di,si,ei,ex)).join('')}
+  </div>`;
+}
+
+function renderExercise(wk,di,si,ei,ex){
+  const p = parseEx(ex.text,ex.detail,ex.amrap);
+
+  // Single-check inline items (cardio single, plain check, single distance)
+  if(p.n===1 && (p.type==='check'||p.type==='cardio')){
+    const sd = getSD(sKey(wk,di,si,ei,0));
+    return `<div class="exercise ${sd.done?'done':''}" onclick="toggleSet(${wk},${di},${si},${ei},0)">
+      <div class="ex-check"></div>
+      <div><div class="ex-text">${ex.text}</div>
+      ${ex.detail?`<div class="ex-detail">${ex.detail}</div>`:''}</div>
+    </div>`;
+  }
+
+  // Multi-row exercise block with set rows
+  const allDone = isExDone(wk,di,si,ei);
+  let h = `<div class="ex-block ${allDone?'all-done':''}">`;
+  h += `<div class="ex-name-row"><div class="ex-ind"></div><div><div class="ex-name">${ex.text}</div>`;
+  if(ex.detail && p.type!=='wendler') h += `<div class="ex-det">${ex.detail}</div>`;
+  h += `</div></div>`;
+  h += `<div class="set-rows">`;
+  for(let i=0;i<p.n;i++) h += renderSetRow(wk,di,si,ei,i,p);
+  h += `</div>`;
+
+  // e1RM badge for wendler sets (single set each)
+  if(p.type==='wendler'){
+    const key=sKey(wk,di,si,ei,0), sd=getSD(key);
+    const w=sd.v1||(p.per[0].w||''), r=sd.v2||(p.per[0].r||'');
+    const e=epley(w,r);
+    h += `<div class="e1rm" id="e1rm-${key}"><span class="e1rm-label">e1RM</span> <span class="e1rm-val">${e?e.toFixed(1)+'kg':'--'}</span></div>`;
+  }
+  // e1RM badge for weighted exercises (best across all sets)
+  if(p.type==='weighted'){
+    let bestE=null;
+    for(let i=0;i<p.n;i++){
+      const k=sKey(wk,di,si,ei,i), sd=getSD(k);
+      const e=epley(sd.v1,sd.v2);
+      if(e && (!bestE || e>bestE)) bestE=e;
+    }
+    h += `<div class="e1rm" id="e1rm-w-${wk}-${di}-${si}-${ei}"><span class="e1rm-label">e1RM</span> <span class="e1rm-val">${bestE?bestE.toFixed(1)+'kg':'--'}</span></div>`;
+  }
+  // Previous performance hint
+  const prev=findPrevData(wk,di,si,ei);
+  if(prev){
+    let pText='';
+    if(prev.type==='wendler'||prev.type==='weighted'){
+      const pe=epley(prev.data.v1,prev.data.v2);
+      pText=`prev: ${prev.data.v1}kg \u00d7 ${prev.data.v2}`;
+      if(prev.amrap && pe) pText+=` \u2192 e1RM ${pe.toFixed(1)}kg`;
+    } else if(prev.type==='reps'){
+      pText=`prev: ${prev.data.v1} reps`;
+    } else if(prev.type==='hold'){
+      pText=`prev: ${prev.data.v1}s`;
+    } else if(prev.type==='fortime'){
+      pText=`prev: ${prev.data.v1}`;
+    }
+    if(pText) h+=`<div class="prev-hint">${pText}</div>`;
+  }
+  h += `</div>`;
+  return h;
+}
+
+function renderSetRow(wk,di,si,ei,idx,p){
+  const key = sKey(wk,di,si,ei,idx);
+  const sd = getSD(key);
+  const ps = p.per[idx];
+  const dc = sd.done?'done':'';
+  const lbl = p.type==='warmup'?'WU':'S';
+  let inp = '';
+
+  switch(p.type){
+    case 'wendler':{
+      const wv=sd.v1||ps.w||'', rv=sd.v2||'';
+      const tgt=p.amrap?ps.r+'+':ps.r;
+      inp = `<input class="set-input w" type="number" step="0.5" value="${wv}" placeholder="kg"
+        onclick="event.stopPropagation()" oninput="setVal(${wk},${di},${si},${ei},${idx},'v1',this.value)">
+        <span class="set-sep">kg &times;</span>
+        <input class="set-input r" type="number" value="${rv}" placeholder="reps"
+        onclick="event.stopPropagation()" oninput="setVal(${wk},${di},${si},${ei},${idx},'v2',this.value)">
+        <span class="set-target">/${tgt}</span>`;
+      break;
+    }
+    case 'weighted':{
+      const wv=sd.v1||'', rv=sd.v2||'';
+      inp = `<input class="set-input w" type="number" step="0.5" value="${wv}" placeholder="kg"
+        onclick="event.stopPropagation()" oninput="setVal(${wk},${di},${si},${ei},${idx},'v1',this.value)">
+        <span class="set-sep">&times;</span>
+        <input class="set-input r" type="number" value="${rv}" placeholder="reps"
+        onclick="event.stopPropagation()" oninput="setVal(${wk},${di},${si},${ei},${idx},'v2',this.value)">
+        <span class="set-target">/${ps.r}</span>`;
+      break;
+    }
+    case 'reps':{
+      const rv=sd.v1||'';
+      const tgt=ps.r!=null?`/${ps.r}`:'';
+      inp = `<input class="set-input r" type="number" value="${rv}" placeholder="reps"
+        onclick="event.stopPropagation()" oninput="setVal(${wk},${di},${si},${ei},${idx},'v1',this.value)">
+        <span class="set-target">${tgt}</span>`;
+      break;
+    }
+    case 'hold':{
+      const tv=sd.v1||'';
+      inp = `<input class="set-input t" type="number" value="${tv}" placeholder="sec"
+        onclick="event.stopPropagation()" oninput="setVal(${wk},${di},${si},${ei},${idx},'v1',this.value)">
+        <span class="set-target">/${ps.s}s</span>`;
+      break;
+    }
+    case 'fortime':{
+      const tv=sd.v1||'';
+      inp = `<input class="set-input ft" type="text" value="${tv}" placeholder="m:ss"
+        onclick="event.stopPropagation()" oninput="setVal(${wk},${di},${si},${ei},${idx},'v1',this.value)">`;
+      break;
+    }
+    case 'warmup':
+      inp = `<span class="wu-label">${ps.label}</span>`;
+      break;
+    case 'distance':
+      inp = `<span class="wu-label">${ps.label||''}</span>`;
+      break;
+    default: // cardio multi-set
+      break;
+  }
+
+  return `<div class="set-row">
+    <div class="set-num">${lbl}${idx+1}</div>
+    ${inp}
+    <div class="set-chk ${dc}" onclick="event.stopPropagation();toggleSet(${wk},${di},${si},${ei},${idx})"></div>
+  </div>`;
+}
+
+function isToday(dateStr){
+  const now=new Date(), months={Jan:0,Feb:1,Mar:2,Apr:3,May:4};
+  const parts=dateStr.split(' ');
+  return now.getDate()===parseInt(parts[1]) && now.getMonth()===months[parts[2]] && now.getFullYear()===2026;
+}
+
+// ─── Actions ────────────────────────────────────────────────────
+function toggleDay(el,dayKey){
+  const card=el.closest('.day-card');
+  card.classList.toggle('expanded');
+  if(card.classList.contains('expanded')) expandedDays.add(dayKey);
+  else expandedDays.delete(dayKey);
+}
+
+function toggleSet(wk,di,si,ei,idx){
+  const week=PLAN.weeks.find(w=>w.id===wk);
+  const ex=week.days[di].sections[si].exercises[ei];
+  const p=parseEx(ex.text,ex.detail,ex.amrap);
+  const key=sKey(wk,di,si,ei,idx);
+  const sd={...getSD(key)};
+
+  if(!sd.done){
+    autoFill(p,idx,sd);
+    sd.done=true;
+  } else {
+    sd.done=false;
+  }
+  state.sets[key]=sd;
+  saveState();
+  if(sd.done) showRestPill();
+  const sy=window.scrollY;
+  render();
+  window.scrollTo(0,sy);
+}
+
+function autoFill(p,idx,sd){
+  const ps=p.per[idx];
+  switch(p.type){
+    case 'wendler':
+      if(!sd.v1 && ps.w) sd.v1=String(ps.w);
+      if(!p.amrap && !sd.v2 && ps.r) sd.v2=String(ps.r);
+      break;
+    case 'weighted':
+      if(!sd.v2 && ps.r) sd.v2=String(ps.r);
+      break;
+    case 'reps':
+      if(!sd.v1 && ps.r!=null) sd.v1=String(ps.r);
+      break;
+    case 'hold':
+      if(!sd.v1 && ps.s) sd.v1=String(ps.s);
+      break;
+  }
+}
+
+function toggleSection(wk,di,si){
+  const week=PLAN.weeks.find(w=>w.id===wk);
+  const sec=week.days[di].sections[si];
+  const allDone=sec.exercises.every((e,ei)=>isExDone(wk,di,si,ei));
+
+  sec.exercises.forEach((ex,ei)=>{
+    const p=parseEx(ex.text,ex.detail,ex.amrap);
+    for(let i=0;i<p.n;i++){
+      const key=sKey(wk,di,si,ei,i);
+      const sd={...getSD(key)};
+      if(!allDone){
+        if(!sd.done){ autoFill(p,i,sd); sd.done=true }
+      } else { sd.done=false }
+      state.sets[key]=sd;
+    }
+  });
+  saveState();
+  const sy=window.scrollY;
+  render();
+  window.scrollTo(0,sy);
+}
+
+function setVal(wk,di,si,ei,idx,field,value){
+  const key=sKey(wk,di,si,ei,idx);
+  const sd={...getSD(key)};
+  sd[field]=value;
+  state.sets[key]=sd;
+  saveState();
+  // Update e1RM in-place (avoid full re-render to keep input focus)
+  const week=PLAN.weeks.find(w=>w.id===wk);
+  const ex=week.days[di].sections[si].exercises[ei];
+  const p=parseEx(ex.text,ex.detail,ex.amrap);
+  if(p.type==='wendler'){
+    const e=epley(sd.v1,sd.v2);
+    const el=document.getElementById('e1rm-'+key);
+    if(el) el.querySelector('.e1rm-val').textContent=e?e.toFixed(1)+'kg':'--';
+  }
+  if(p.type==='weighted'){
+    let bestE=null;
+    for(let i=0;i<p.n;i++){
+      const k=sKey(wk,di,si,ei,i), s=getSD(k);
+      const e=epley(s.v1,s.v2);
+      if(e&&(!bestE||e>bestE)) bestE=e;
+    }
+    const el=document.getElementById('e1rm-w-'+wk+'-'+di+'-'+si+'-'+ei);
+    if(el) el.querySelector('.e1rm-val').textContent=bestE?bestE.toFixed(1)+'kg':'--';
+  }
+}
+
+function setFeel(wk,di,when,val){
+  const key='f-'+wk+'-'+di+'-'+when;
+  state.feel[key]=state.feel[key]===val?0:val;
+  saveState();
+  const sy=window.scrollY;
+  render();
+  window.scrollTo(0,sy);
+}
+
+function saveNote(wk,di,value){
+  state.notes[noteKey(wk,di)]=value;
+  saveState();
+}
+
+// ─── Export / Import ────────────────────────────────────────────
+function exportData(){
+  const json=JSON.stringify(state,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  const d=new Date();
+  a.download=`hyrox-prep-backup-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(input){
+  const file=input.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!data.sets||typeof data.sets!=='object'||Array.isArray(data.sets)) throw new Error('Invalid');
+      if(!data.notes||typeof data.notes!=='object'||Array.isArray(data.notes)) throw new Error('Invalid');
+      function merge(target,source){
+        Object.keys(source).forEach(k=>{
+          if(source[k]&&typeof source[k]==='object'&&!Array.isArray(source[k])
+            &&target[k]&&typeof target[k]==='object'&&!Array.isArray(target[k])){
+            merge(target[k],source[k]);
+          } else { target[k]=source[k] }
+        });
+      }
+      merge(state,data);
+      saveState();
+      render();
+      if(document.getElementById('progressView').style.display!=='none') renderProgress();
+      alert('Imported successfully');
+    }catch(err){ alert('Invalid backup file') }
+  };
+  reader.readAsText(file);
+  input.value='';
+}
+
+// ─── Rest Timer ─────────────────────────────────────────────────
+let timerInterval=null, timerRemaining=0, timerHideTimeout=null;
+
+function showRestPill(){
+  const pill=document.getElementById('restPill');
+  timerRemaining=state.restTimer||90;
+  document.getElementById('timerVal').textContent=fmtTimer(timerRemaining);
+  document.getElementById('timerBtn').textContent='\u25B6';
+  pill.style.display='flex';
+  pill.classList.remove('running','done');
+  clearTimeout(timerHideTimeout);
+}
+
+function fmtTimer(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+
+function toggleTimer(){
+  if(timerInterval){
+    clearInterval(timerInterval);timerInterval=null;
+    document.getElementById('timerBtn').textContent='\u25B6';
+    document.getElementById('restPill').classList.remove('running');
+  } else {
+    if(timerRemaining<=0) timerRemaining=state.restTimer||90;
+    document.getElementById('timerBtn').textContent='\u23F8';
+    document.getElementById('restPill').classList.add('running');
+    document.getElementById('restPill').classList.remove('done');
+    timerInterval=setInterval(()=>{
+      timerRemaining--;
+      document.getElementById('timerVal').textContent=fmtTimer(Math.max(0,timerRemaining));
+      if(timerRemaining<=0){
+        clearInterval(timerInterval);timerInterval=null;
+        document.getElementById('timerBtn').textContent='\u2713';
+        document.getElementById('restPill').classList.remove('running');
+        document.getElementById('restPill').classList.add('done');
+        if(navigator.vibrate) navigator.vibrate([200,100,200]);
+        timerHideTimeout=setTimeout(()=>{document.getElementById('restPill').style.display='none'},3000);
+      }
+    },1000);
+  }
+}
+
+function toggleRestConfig(){
+  const cfg=document.getElementById('restConfig');
+  cfg.classList.toggle('show');
+  cfg.querySelectorAll('.rest-opt').forEach(el=>{
+    const m=el.getAttribute('onclick').match(/\d+/);
+    el.classList.toggle('sel',m&&parseInt(m[0])===state.restTimer);
+  });
+}
+
+function setRestDuration(secs){
+  state.restTimer=secs;saveState();
+  timerRemaining=secs;
+  document.getElementById('timerVal').textContent=fmtTimer(secs);
+  document.getElementById('restConfig').classList.remove('show');
+}
+
+// ─── Tab Switching ──────────────────────────────────────────────
+let trainScrollY=0;
+function switchTab(tab){
+  if(tab==='train'){
+    trainView.style.display='block'; progressView.style.display='none';
+    navTrain.classList.add('active'); navProgress.classList.remove('active');
+    window.scrollTo(0,trainScrollY);
+  } else {
+    trainScrollY=window.scrollY;
+    trainView.style.display='none'; progressView.style.display='block';
+    navTrain.classList.remove('active'); navProgress.classList.add('active');
+    document.getElementById('restPill').style.display='none';
+    document.getElementById('restConfig').classList.remove('show');
+    renderProgress();
+    window.scrollTo(0,0);
+  }
+}
+function calcTotalVolume(){
+  let vol=0;
+  PLAN.weeks.forEach(w=>{w.days.forEach((d,di)=>{d.sections.forEach((s,si)=>{s.exercises.forEach((ex,ei)=>{
+    const p=parseEx(ex.text,ex.detail,ex.amrap);
+    if(p.type==='wendler'||p.type==='weighted'){
+      for(let i=0;i<p.n;i++){
+        const sd=getSD(sKey(w.id,di,si,ei,i));
+        if(sd.done&&sd.v1&&sd.v2) vol+=parseFloat(sd.v1)*parseInt(sd.v2);
+      }
+    }
+  })})})});
+  return vol;
+}
+
+function calcBestE1rm(){
+  let best=null,name='';
+  PLAN.weeks.forEach(w=>{w.days.forEach((d,di)=>{d.sections.forEach((s,si)=>{s.exercises.forEach((ex,ei)=>{
+    const p=parseEx(ex.text,ex.detail,ex.amrap);
+    if(p.type==='wendler'||p.type==='weighted'){
+      for(let i=0;i<p.n;i++){
+        const sd=getSD(sKey(w.id,di,si,ei,i));
+        const e=epley(sd.v1,sd.v2);
+        if(e&&(!best||e>best)){best=e;
+          if(/Bench/.test(s.name)) name='Bench';
+          else if(/OHP/.test(s.name)) name='OHP';
+          else name=ex.text;
+        }
+      }
+    }
+  })})})});
+  return best?{val:best,name}:null;
+}
+
+function calcStreak(){
+  let streak=0;
+  const today=new Date();
+  const allDays=[];
+  PLAN.weeks.forEach(w=>{w.days.forEach((d,di)=>{
+    const months={Jan:0,Feb:1,Mar:2,Apr:3,May:4};
+    const parts=d.date.split(' ');
+    const dt=new Date(2026,months[parts[2]],parseInt(parts[1]));
+    const done=d.sections.every((s,si)=>s.exercises.every((e,ei)=>isExDone(w.id,di,si,ei)));
+    allDays.push({dt,done});
+  })});
+  allDays.sort((a,b)=>b.dt-a.dt);
+  for(const day of allDays){
+    if(day.dt>today) continue;
+    if(day.done) streak++; else break;
+  }
+  return streak;
+}
+
+function renderProgress(){
+  const c=document.getElementById('progressContent');
+  let totalSessions=0,doneSessions=0;
+  PLAN.weeks.forEach(w=>{w.days.forEach((d,di)=>{
+    totalSessions++;
+    if(d.sections.every((s,si)=>s.exercises.every((e,ei)=>isExDone(w.id,di,si,ei)))) doneSessions++;
+  })});
+  const vol=calcTotalVolume();
+  const bestE=calcBestE1rm();
+  const streak=calcStreak();
+
+  let h=`<div class="countdown-row" style="margin-bottom:20px">
+    <div class="countdown-item"><div class="ci-val">${doneSessions}/${totalSessions}</div><div class="ci-label">Sessions</div></div>
+    <div class="countdown-item"><div class="ci-val">${streak}</div><div class="ci-label">Streak</div></div>
+    <div class="countdown-item"><div class="ci-val">${vol?Math.round(vol).toLocaleString()+'kg':'--'}</div><div class="ci-label">Volume</div></div>
+    <div class="countdown-item"><div class="ci-val">${bestE?bestE.val.toFixed(1)+'kg':'--'}</div><div class="ci-label">${bestE?'Best e1RM ('+bestE.name+')':'Best e1RM'}</div></div>
+  </div>`;
+
+  h+='<div id="progressCharts"></div>';
+  h+=`<div style="text-align:center;padding:20px 0">
+    <label style="font-size:10px;color:var(--text-dim);cursor:pointer;border-bottom:1px solid var(--border)">
+      Import Backup <input type="file" accept=".json" style="display:none" onchange="importData(this)">
+    </label>
+  </div>`;
+  c.innerHTML=h;
+  renderE1rmCharts();
+  renderSkillTrends();
+  renderFeelTrends();
+}
+
+function getE1rmByWeek(matchFn){
+  const results=[];
+  PLAN.weeks.forEach(w=>{
+    let best=null;
+    w.days.forEach((d,di)=>{d.sections.forEach((s,si)=>{s.exercises.forEach((ex,ei)=>{
+      if(!matchFn(ex,s)) return;
+      const p=parseEx(ex.text,ex.detail,ex.amrap);
+      if(p.type!=='wendler'&&p.type!=='weighted') return;
+      for(let i=0;i<p.n;i++){
+        const sd=getSD(sKey(w.id,di,si,ei,i));
+        const e=epley(sd.v1,sd.v2);
+        if(e&&(!best||e>best)) best=e;
+      }
+    })})});
+    if(best) results.push({week:w.id,val:best});
+  });
+  return results;
+}
+
+function svgSparkline(data, width, height, color1, color2){
+  if(data.length<2) return '';
+  const pad=20, w=width-pad*2, h=height-pad*2;
+  const minV=Math.min(...data.map(d=>d.val))*0.95;
+  const maxV=Math.max(...data.map(d=>d.val))*1.05;
+  const range=maxV-minV||1;
+  const pts=data.map((d,i)=>{
+    const x=pad+i/(data.length-1)*w;
+    const y=pad+(1-(d.val-minV)/range)*h;
+    return {x,y,val:d.val,week:d.week};
+  });
+  const pathD=pts.map((p,i)=>(i===0?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ');
+  const gradId='sg'+Math.random().toString(36).slice(2,8);
+  let svg=`<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="width:100%;height:auto">`;
+  svg+=`<defs><linearGradient id="${gradId}"><stop stop-color="${color1}"/><stop offset="1" stop-color="${color2}"/></linearGradient></defs>`;
+  svg+=`<path d="${pathD}" fill="none" stroke="url(#${gradId})" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+  pts.forEach((p,i)=>{
+    svg+=`<circle cx="${p.x}" cy="${p.y}" r="4" fill="${i===pts.length-1?color2:color1}" stroke="var(--surface)" stroke-width="2"/>`;
+  });
+  const last=pts[pts.length-1];
+  svg+=`<text x="${last.x}" y="${last.y-10}" fill="${color2}" font-size="11" font-weight="700" text-anchor="middle">${last.val.toFixed(1)}</text>`;
+  pts.forEach(p=>{
+    svg+=`<text x="${p.x}" y="${height-4}" fill="var(--text-dim)" font-size="9" text-anchor="middle">W${p.week}</text>`;
+  });
+  svg+=`</svg>`;
+  return svg;
+}
+
+function renderE1rmCharts(){
+  const container=document.getElementById('progressCharts');
+  const charts=[
+    {label:'Bench e1RM Trend', match:(ex,sec)=>/Wendler Bench/.test(sec.name), c1:'#d4637a', c2:'#d4936a'},
+    {label:'OHP e1RM Trend', match:(ex,sec)=>/Wendler OHP/.test(sec.name), c1:'#5a8ab8', c2:'#9a6ab8'},
+    {label:'Romanian Deadlift e1RM', match:(ex)=>/Romanian Deadlift/.test(ex.text), c1:'#5ab88a', c2:'#5a8ab8'},
+    {label:'Leg Press e1RM', match:(ex)=>/Leg Press/.test(ex.text), c1:'#c4a46a', c2:'#d4936a'},
+  ];
+  let h='';
+  charts.forEach(ch=>{
+    const data=getE1rmByWeek(ch.match);
+    if(data.length<2) return;
+    h+=`<div style="background:var(--surface);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px;position:relative;overflow:hidden">`;
+    h+=`<div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,${ch.c1},${ch.c2})"></div>`;
+    h+=`<div style="font-size:12px;font-weight:600;margin-bottom:8px">${ch.label}</div>`;
+    h+=svgSparkline(data, 400, 120, ch.c1, ch.c2);
+    h+=`</div>`;
+  });
+  container.innerHTML=h;
+}
+
+function renderSkillTrends(){
+  const container=document.getElementById('progressCharts');
+  const skills={};
+  PLAN.weeks.forEach(w=>{w.days.forEach((d,di)=>{d.sections.forEach((s,si)=>{s.exercises.forEach((ex,ei)=>{
+    const p=parseEx(ex.text,ex.detail,ex.amrap);
+    if(p.type!=='reps'&&p.type!=='hold') return;
+    let best=null;
+    for(let i=0;i<p.n;i++){
+      const sd=getSD(sKey(w.id,di,si,ei,i));
+      if(sd.done&&sd.v1){
+        const v=parseInt(sd.v1);
+        if(!best||v>best) best=v;
+      }
+    }
+    if(best===null) return;
+    if(!skills[ex.text]) skills[ex.text]=[];
+    const existing=skills[ex.text].find(s=>s.week===w.id);
+    if(existing){if(best>existing.val) existing.val=best}
+    else skills[ex.text].push({week:w.id,val:best});
+  })})})});
+
+  const entries=Object.entries(skills).filter(([k,v])=>v.length>=2).sort((a,b)=>a[0].localeCompare(b[0]));
+  if(!entries.length) return;
+
+  let h=`<div style="background:var(--surface);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px;position:relative;overflow:hidden">`;
+  h+=`<div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-green)"></div>`;
+  h+=`<div style="font-size:12px;font-weight:600;margin-bottom:12px">Skill & Conditioning Trends</div>`;
+  entries.forEach(([name,data])=>{
+    data.sort((a,b)=>a.week-b.week);
+    const arrow=data.map(d=>d.val).join(' \u2192 ');
+    const unit=name.match(/Hold|Isometric/i)?'s':'';
+    h+=`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px">`;
+    h+=`<span style="color:var(--text-muted)">${name}</span>`;
+    h+=`<span style="color:var(--text);font-weight:500">${arrow}${unit}</span>`;
+    h+=`</div>`;
+  });
+  h+=`</div>`;
+  container.innerHTML+=h;
+}
+
+function renderFeelTrends(){
+  const container=document.getElementById('progressCharts');
+  const labels=['','Terrible','Low','Okay','Good','Great'];
+  const preData=[],postData=[];
+  PLAN.weeks.forEach(w=>{
+    let preSum=0,preN=0,postSum=0,postN=0;
+    w.days.forEach((d,di)=>{
+      const pre=state.feel['f-'+w.id+'-'+di+'-pre'];
+      const post=state.feel['f-'+w.id+'-'+di+'-post'];
+      if(pre){preSum+=pre;preN++}
+      if(post){postSum+=post;postN++}
+    });
+    if(preN) preData.push({week:w.id,val:preSum/preN});
+    if(postN) postData.push({week:w.id,val:postSum/postN});
+  });
+  if(preData.length<2&&postData.length<2) return;
+
+  let h=`<div style="background:var(--surface);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px;position:relative;overflow:hidden">`;
+  h+=`<div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-blue)"></div>`;
+  h+=`<div style="font-size:12px;font-weight:600;margin-bottom:8px">Session Feel Trends</div>`;
+  if(preData.length>=2) h+=`<div style="margin-bottom:4px"><span style="font-size:10px;color:var(--text-muted)">Before: </span>${svgSparkline(preData,400,80,'#d4936a','#c4a46a')}</div>`;
+  if(postData.length>=2) h+=`<div><span style="font-size:10px;color:var(--text-muted)">After: </span>${svgSparkline(postData,400,80,'#5ab88a','#5a8ab8')}</div>`;
+  h+=`</div>`;
+  container.innerHTML+=h;
+}
+
+// ─── Init ───────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
