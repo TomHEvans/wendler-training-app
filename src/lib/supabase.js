@@ -13,16 +13,18 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
+// Firebase web config is safe to expose in client-side code.
+// Security is handled by Firestore rules, not by hiding these values.
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyAhZ1tWptudtKtqB-0OsBop6dQFMDMvHoo",
+  authDomain: "training-plan-f14f0.firebaseapp.com",
+  projectId: "training-plan-f14f0",
+  storageBucket: "training-plan-f14f0.firebasestorage.app",
+  messagingSenderId: "891294697198",
+  appId: "1:891294697198:web:40a16637607e23212495ff",
 };
 
-const hasFirebase = firebaseConfig.apiKey && firebaseConfig.projectId;
+const hasFirebase = true;
 
 let db = null;
 if (hasFirebase) {
