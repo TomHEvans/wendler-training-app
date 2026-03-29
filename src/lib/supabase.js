@@ -1,48 +1,56 @@
-import { createClient } from '@supabase/supabase-js';
+import { initializeApp } from 'firebase/app';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  getDocs,
+  collection,
+  query,
+  orderBy,
+  limit,
+  addDoc,
+  serverTimestamp,
+} from 'firebase/firestore';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
 
-const hasSupabase = supabaseUrl && supabaseKey;
+const hasFirebase = firebaseConfig.apiKey && firebaseConfig.projectId;
 
-const supabase = hasSupabase
-  ? createClient(supabaseUrl, supabaseKey)
-  : null;
+let db = null;
+if (hasFirebase) {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+}
 
-// Storage abstraction - uses Supabase if configured, localStorage fallback
 const storage = {
   async getPlan(weekId) {
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('plans')
-        .select('data')
-        .eq('id', weekId)
-        .single();
-      if (error && error.code !== 'PGRST116') console.error('getPlan error:', error);
-      return data?.data || null;
+    if (db) {
+      const snap = await getDoc(doc(db, 'plans', weekId));
+      return snap.exists() ? snap.data() : null;
     }
     const stored = localStorage.getItem(`plan-${weekId}`);
     return stored ? JSON.parse(stored) : null;
   },
 
   async savePlan(weekId, planData) {
-    if (supabase) {
-      const { error } = await supabase
-        .from('plans')
-        .upsert({ id: weekId, data: planData, updated_at: new Date().toISOString() });
-      if (error) console.error('savePlan error:', error);
+    if (db) {
+      await setDoc(doc(db, 'plans', weekId), planData);
     }
     localStorage.setItem(`plan-${weekId}`, JSON.stringify(planData));
   },
 
   async getAllPlans() {
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('plans')
-        .select('*')
-        .order('id');
-      if (error) console.error('getAllPlans error:', error);
-      return (data || []).map(row => ({ id: row.id, ...row.data }));
+    if (db) {
+      const snap = await getDocs(query(collection(db, 'plans'), orderBy('__name__')));
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
     }
     const plans = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -56,67 +64,47 @@ const storage = {
   },
 
   async getCompletions(dayDate) {
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('completions')
-        .select('exercise_key, completed')
-        .eq('day_date', dayDate);
-      if (error) console.error('getCompletions error:', error);
-      const map = {};
-      (data || []).forEach(r => { map[r.exercise_key] = r.completed; });
-      return map;
+    if (db) {
+      const snap = await getDoc(doc(db, 'completions', dayDate));
+      return snap.exists() ? snap.data() : {};
     }
     const stored = localStorage.getItem(`completions-${dayDate}`);
     return stored ? JSON.parse(stored) : {};
   },
 
   async toggleCompletion(exerciseKey, dayDate, completed) {
-    if (supabase) {
-      const { error } = await supabase
-        .from('completions')
-        .upsert({
-          exercise_key: exerciseKey,
-          day_date: dayDate,
-          completed,
-          completed_at: new Date().toISOString()
-        }, { onConflict: 'exercise_key,day_date' });
-      if (error) console.error('toggleCompletion error:', error);
-    }
     const completions = await this.getCompletions(dayDate);
     completions[exerciseKey] = completed;
+    if (db) {
+      await setDoc(doc(db, 'completions', dayDate), completions);
+    }
     localStorage.setItem(`completions-${dayDate}`, JSON.stringify(completions));
   },
 
   async addChangelog(action, details, weekId) {
-    if (supabase) {
-      const { error } = await supabase
-        .from('changelog')
-        .insert({ action, details, week_id: weekId });
-      if (error) console.error('addChangelog error:', error);
+    const entry = {
+      action,
+      details: details || '',
+      week_id: weekId || '',
+      created_at: new Date().toISOString(),
+    };
+    if (db) {
+      await addDoc(collection(db, 'changelog'), entry);
     }
     const logs = JSON.parse(localStorage.getItem('changelog') || '[]');
-    logs.unshift({
-      id: crypto.randomUUID(),
-      action,
-      details,
-      week_id: weekId,
-      created_at: new Date().toISOString()
-    });
+    logs.unshift({ id: crypto.randomUUID(), ...entry });
     localStorage.setItem('changelog', JSON.stringify(logs));
   },
 
   async getChangelog() {
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('changelog')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(100);
-      if (error) console.error('getChangelog error:', error);
-      return data || [];
+    if (db) {
+      const snap = await getDocs(
+        query(collection(db, 'changelog'), orderBy('created_at', 'desc'), limit(100))
+      );
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
     }
     return JSON.parse(localStorage.getItem('changelog') || '[]');
-  }
+  },
 };
 
-export { supabase, storage, hasSupabase };
+export { db, storage, hasFirebase };

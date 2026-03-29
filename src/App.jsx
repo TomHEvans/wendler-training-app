@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
-import { storage, hasSupabase } from './lib/supabase.js';
+import { storage, hasFirebase } from './lib/supabase.js';
 import { generateInitialPlan } from './data/plan.js';
 import Dashboard from './components/Dashboard.jsx';
 import WeekView from './components/WeekView.jsx';
@@ -105,8 +105,8 @@ export default function App() {
     <div className="app">
       <div className="app-header">
         <h1>Hyrox Prep</h1>
-        <span className={`storage-badge ${hasSupabase ? '' : 'local'}`}>
-          {hasSupabase ? 'Cloud' : 'Local'}
+        <span className={`storage-badge ${hasFirebase ? '' : 'local'}`}>
+          {hasFirebase ? 'Cloud' : 'Local'}
         </span>
       </div>
 

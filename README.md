@@ -22,7 +22,7 @@ Personal training app for Hyrox race prep. Mobile-first, cloud-synced, fully tra
 ## Tech Stack
 
 - React 18 + Vite
-- Supabase (cloud database) with localStorage fallback
+- Firebase Firestore (cloud database) with localStorage fallback
 - Deployed on Vercel
 
 ## Setup
@@ -31,15 +31,22 @@ Personal training app for Hyrox race prep. Mobile-first, cloud-synced, fully tra
 
 Connect this repo to Vercel for automatic deployments.
 
-### 2. Set up Supabase (for cloud sync)
+### 2. Set up Firebase (for cloud sync)
 
-1. Create a free project at [supabase.com](https://supabase.com)
-2. Run the SQL in `supabase/schema.sql` in the Supabase SQL Editor
-3. Add these environment variables in Vercel:
-   - `VITE_SUPABASE_URL` - Your Supabase project URL
-   - `VITE_SUPABASE_ANON_KEY` - Your Supabase anon/public key
+1. Go to [Firebase Console](https://console.firebase.google.com) and create a project
+2. Add a Web app (Project Settings > General > Your apps > Add app)
+3. Enable Firestore Database (Build > Firestore > Create database > Start in test mode)
+4. Copy the Firebase config and add these environment variables in Vercel:
+   - `VITE_FIREBASE_API_KEY`
+   - `VITE_FIREBASE_AUTH_DOMAIN`
+   - `VITE_FIREBASE_PROJECT_ID`
+   - `VITE_FIREBASE_STORAGE_BUCKET`
+   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
+   - `VITE_FIREBASE_APP_ID`
 
-Without Supabase, the app works with localStorage (per-device, shown as "Local" badge).
+Without Firebase, the app works with localStorage (per-device, shown as "Local" badge).
+
+**Note:** Firestore in test mode expires after 30 days. For long-term use, update the security rules to allow read/write (this is a personal app with no auth).
 
 ### 3. Add to Phone Home Screen
 
