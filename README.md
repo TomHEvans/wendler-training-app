@@ -1,51 +1,62 @@
-# My Vite + React App
+# Hyrox Training Prep
 
-A minimal **Vite 5 + React 18** template that deploys to **GitHub Pages** using **GitHub Actions** (no local installs required).
+Personal training app for Hyrox race prep. Mobile-first, cloud-synced, fully traceable.
 
-## How it works
+## Features
 
-1. Vite builds the app to `/dist`.
-2. GitHub Actions runs `npm install` and `npm run build` on push.
-3. The workflow injects `BASE_PATH='/my-vite-react-app/'` so the site works at `https://<username>.github.io/my-vite-react-app/`.
-4. Pages deploys the `/dist` artifact.
+- **Today view** - Daily training plan with exercise checkboxes and progress tracking
+- **Week view** - Full week overview with drill-down into each day
+- **Plan editor** - Sunday weekly update: paste gym plan, physio notes, edit exercises
+- **Changelog** - Full traceability of every plan change and exercise completion
+- **Physio tracking** - Shoulder prehab and knee rehab frequency tracking (3-4x/week)
+- **Hyrox stations** - All 8 stations tracked with practice sessions
 
-## Quick start (no local installs)
+## Physio Constraints
 
-1. Create a **public** GitHub repo named `my-vite-react-app`.
-2. Upload these files to the repo root:
-   - `index.html`
-   - `package.json`
-   - `vite.config.js`
-   - `src/App.jsx`
-   - `src/main.jsx`
-   - `.github/workflows/deploy.yml`
+- No Olympic lifts
+- No running or squatting weight without a box
+- No high-weight explosive knee extensions
+- Shoulder prehab circuit always before upper body work
+- Shoulder prehab + knee rehab 3-4x per week
 
-### Dotfolder tip (`.github`)
+## Tech Stack
 
-GitHub's web uploader sometimes hides dotfolders. Use **Add file → Create new file** and enter this path exactly:
-`.github/workflows/deploy.yml`
+- React 18 + Vite
+- Supabase (cloud database) with localStorage fallback
+- Deployed on Vercel
 
-Paste the workflow content and commit. GitHub will create the folders automatically.
+## Setup
 
-3. Go to **Settings → Pages** and set **Source** to **GitHub Actions**.
-4. Make any commit to `main` (for example edit this README) to trigger the workflow.
-5. Watch **Actions** until “Deploy to GitHub Pages” is green.
-6. Open: `https://<username>.github.io/my-vite-react-app/`
+### 1. Deploy to Vercel
 
-## Customize
+Connect this repo to Vercel for automatic deployments.
 
-- `src/App.jsx` is the demo UI and state
-- `src/main.jsx` is the React bootstrap
-- `index.html` controls the HTML shell and `<title>`
-- `vite.config.js` keeps `base` dynamic via `process.env.BASE_PATH`
-- `.github/workflows/deploy.yml` controls CI/CD
+### 2. Set up Supabase (for cloud sync)
 
-## Local dev (optional)
+1. Create a free project at [supabase.com](https://supabase.com)
+2. Run the SQL in `supabase/schema.sql` in the Supabase SQL Editor
+3. Add these environment variables in Vercel:
+   - `VITE_SUPABASE_URL` - Your Supabase project URL
+   - `VITE_SUPABASE_ANON_KEY` - Your Supabase anon/public key
 
-If you do want to run locally later:
+Without Supabase, the app works with localStorage (per-device, shown as "Local" badge).
+
+### 3. Add to Phone Home Screen
+
+Open the deployed URL on your phone and use "Add to Home Screen" for an app-like experience.
+
+## Weekly Update Workflow
+
+Each Sunday:
+1. Go to the **Plan** tab
+2. Paste your gym plan for the week
+3. Add any physio updates/notes
+4. Edit individual days - add/remove exercises, swap sessions for classes
+5. Hit **Save** - changes are logged to the changelog
+
+## Local Development
 
 ```bash
 npm install
 npm run dev
-
-
+```
