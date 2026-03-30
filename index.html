@@ -295,9 +295,9 @@
 const PLAN = {
   weeks: [
     // WEEK 1
-    { id:1, label:"Week 1", subtitle:"Wendler 5s / Cycle 1", dates:"Mar 23-29",
+    { id:1, label:"Week 1", subtitle:"Cycle 1", dates:"Mar 23-29",
       days:[
-        { date:"Mon 23 Mar", title:"Wendler Bench (5s) + Hyrox Stations A", type:"bench",
+        { date:"Mon 23 Mar", title:"Hyrox Stations A", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -324,12 +324,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler Bench - 5s Week", exercises:[
-              {text:"Warm-up: 5 x 40kg, 5 x 60kg, 5 x 80kg",detail:""},
-              {text:"Set 1: 65kg x 5",detail:""},
-              {text:"Set 2: 75kg x 5",detail:""},
-              {text:"Set 3: 87kg x 5+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations A (~15-20 min)", exercises:[
               {text:"Wall Balls (9kg)",detail:"3 x 15 (focus on rhythm, 60s rest)"},
@@ -387,7 +381,7 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Thu 26 Mar", title:"Wendler OHP (5s) + Hyrox Stations B", type:"ohp",
+        { date:"Thu 26 Mar", title:"Hyrox Stations B", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -414,12 +408,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler OHP - 5s Week", exercises:[
-              {text:"Warm-up: Bar x 10, 27kg x 5, 36kg x 3",detail:""},
-              {text:"Set 1: 45kg x 5",detail:""},
-              {text:"Set 2: 50kg x 5",detail:""},
-              {text:"Set 3: 57.5kg x 5+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations B (~15-20 min)", exercises:[
               {text:"Sled Pull",detail:"3 x 25m (moderate load, walk back recovery)"},
@@ -471,6 +459,10 @@ const PLAN = {
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
             ]},
+            { name:"Double Under Skill Progression (~10 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
+              {text:"Single-Single-Double drill",detail:"5 x 10"}
+            ]},
             { name:"Hyrox Simulation (~30-40 min)", exercises:[
               {text:"SkiErg",detail:"4 x 500m (moderate pace, 2 min rest)"},
               {text:"Wall Balls (9kg)",detail:"100 reps for time (break as needed)"},
@@ -482,9 +474,9 @@ const PLAN = {
       ]
     },
     // WEEK 2
-    { id:2, label:"Week 2", subtitle:"Wendler 3s / Cycle 1", dates:"Mar 30 - Apr 5",
+    { id:2, label:"Week 2", subtitle:"Cycle 1", dates:"Mar 30 - Apr 5",
       days:[
-        { date:"Mon 30 Mar", title:"Wendler Bench (3s) + Hyrox Stations A", type:"bench",
+        { date:"Mon 30 Mar", title:"Hyrox Stations A", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -511,12 +503,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler Bench - 3s Week", exercises:[
-              {text:"Warm-up: Bar x 10, 44kg x 5, 58kg x 3",detail:""},
-              {text:"Set 1: 72.5kg x 3",detail:""},
-              {text:"Set 2: 85kg x 3",detail:""},
-              {text:"Set 3: 95kg x 3+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations A (~15-20 min)", exercises:[
               {text:"Wall Balls (9kg)",detail:"4 x 15 (focus on rhythm, 60s rest)"},
@@ -573,7 +559,7 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Thu 2 Apr", title:"Wendler OHP (3s) + Hyrox Stations B", type:"ohp",
+        { date:"Thu 2 Apr", title:"Hyrox Stations B", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -600,12 +586,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler OHP - 3s Week", exercises:[
-              {text:"Warm-up: Bar x 10, 29kg x 5, 38kg x 3",detail:""},
-              {text:"Set 1: 47.5kg x 3",detail:""},
-              {text:"Set 2: 55kg x 3",detail:""},
-              {text:"Set 3: 60kg x 3+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations B (~15-20 min)", exercises:[
               {text:"Sled Pull",detail:"3 x 25m (moderate load, walk back recovery)"},
@@ -657,6 +637,10 @@ const PLAN = {
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
             ]},
+            { name:"Double Under Skill Progression (~10 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
+              {text:"Single-Single-Double drill",detail:"5 x 10"}
+            ]},
             { name:"Hyrox Simulation (~30-40 min)", exercises:[
               {text:"SkiErg",detail:"4 x 500m (moderate pace, 2 min rest)"},
               {text:"Wall Balls (9kg)",detail:"100 reps for time (break as needed)"},
@@ -668,9 +652,9 @@ const PLAN = {
       ]
     },
     // WEEK 3
-    { id:3, label:"Week 3", subtitle:"Wendler 1s / Cycle 1", dates:"Apr 6-12",
+    { id:3, label:"Week 3", subtitle:"Cycle 1", dates:"Apr 6-12",
       days:[
-        { date:"Mon 6 Apr", title:"Wendler Bench (1s) + Hyrox Stations A", type:"bench",
+        { date:"Mon 6 Apr", title:"Hyrox Stations A", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -697,12 +681,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler Bench - 1s Week", exercises:[
-              {text:"Warm-up: Bar x 10, 48kg x 5, 64kg x 3",detail:""},
-              {text:"Set 1: 80kg x 5",detail:""},
-              {text:"Set 2: 90kg x 3",detail:""},
-              {text:"Set 3: 100kg x 1+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations A (~15-20 min)", exercises:[
               {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
@@ -759,7 +737,7 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Thu 9 Apr", title:"Wendler OHP (1s) + Hyrox Stations B", type:"ohp",
+        { date:"Thu 9 Apr", title:"Hyrox Stations B", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -786,12 +764,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler OHP - 1s Week", exercises:[
-              {text:"Warm-up: Bar x 10, 30kg x 5, 40kg x 3",detail:""},
-              {text:"Set 1: 50kg x 5",detail:""},
-              {text:"Set 2: 57.5kg x 3",detail:""},
-              {text:"Set 3: 65kg x 1+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations B (~15-20 min)", exercises:[
               {text:"Sled Pull",detail:"4 x 25m (competition load, 90s rest)"},
@@ -843,6 +815,10 @@ const PLAN = {
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
             ]},
+            { name:"Double Under Skill Progression (~10 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
+              {text:"Single-Single-Double drill",detail:"5 x 10"}
+            ]},
             { name:"Hyrox Simulation (~30-40 min)", exercises:[
               {text:"SkiErg",detail:"3 x 750m (progressive effort, 2 min rest)"},
               {text:"Wall Balls (9kg)",detail:"100 reps for time (target sub-5 min)"},
@@ -857,7 +833,7 @@ const PLAN = {
     // WEEK 4
     { id:4, label:"Week 4", subtitle:"Deload", dates:"Apr 13-19",
       days:[
-        { date:"Mon 13 Apr", title:"Wendler Bench (Deload) + Hyrox Stations A", type:"bench",
+        { date:"Mon 13 Apr", title:"Hyrox Stations A", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -884,12 +860,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler Bench - Deload Week", exercises:[
-              {text:"Warm-up: Bar x 10, 26kg x 5, 34kg x 3",detail:""},
-              {text:"Set 1: 42.5kg x 5",detail:""},
-              {text:"Set 2: 52.5kg x 5",detail:""},
-              {text:"Set 3: 62.5kg x 5",detail:""}
             ]},
             { name:"Hyrox Stations A (~15-20 min)", exercises:[
               {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
@@ -946,7 +916,7 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Thu 16 Apr", title:"Wendler OHP (Deload) + Hyrox Stations B", type:"ohp",
+        { date:"Thu 16 Apr", title:"Hyrox Stations B", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -973,12 +943,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler OHP - Deload Week", exercises:[
-              {text:"Warm-up: Bar x 10, 17kg x 5, 22kg x 3",detail:""},
-              {text:"Set 1: 27.5kg x 5",detail:""},
-              {text:"Set 2: 35kg x 5",detail:""},
-              {text:"Set 3: 40kg x 5",detail:""}
             ]},
             { name:"Hyrox Stations B (~15-20 min)", exercises:[
               {text:"Sled Pull",detail:"4 x 25m (competition load, 90s rest)"},
@@ -1029,6 +993,10 @@ const PLAN = {
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
             ]},
+            { name:"Double Under Skill Progression (~10 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
+              {text:"Single-Single-Double drill",detail:"5 x 10"}
+            ]},
             { name:"Hyrox Simulation (~30-40 min)", exercises:[
               {text:"SkiErg",detail:"3 x 750m (progressive effort, 2 min rest)"},
               {text:"Wall Balls (9kg)",detail:"100 reps for time (target sub-5 min)"},
@@ -1041,9 +1009,9 @@ const PLAN = {
       ]
     },
     // WEEK 5
-    { id:5, label:"Week 5", subtitle:"Wendler 5s / Cycle 2", dates:"Apr 20-26",
+    { id:5, label:"Week 5", subtitle:"Cycle 2", dates:"Apr 20-26",
       days:[
-        { date:"Mon 20 Apr", title:"Wendler Bench (5s) + Hyrox Stations A", type:"bench",
+        { date:"Mon 20 Apr", title:"Hyrox Stations A", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1070,12 +1038,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler Bench - 5s Week", exercises:[
-              {text:"Warm-up: Bar x 10, 42kg x 5, 56kg x 3",detail:""},
-              {text:"Set 1: 70kg x 5",detail:""},
-              {text:"Set 2: 80kg x 5",detail:""},
-              {text:"Set 3: 92.5kg x 5+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations A (~15-20 min)", exercises:[
               {text:"Wall Balls (9kg)",detail:"4 x 25 (45s rest)"},
@@ -1132,7 +1094,7 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Thu 23 Apr", title:"Wendler OHP (5s) + Hyrox Stations B", type:"ohp",
+        { date:"Thu 23 Apr", title:"Hyrox Stations B", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1159,12 +1121,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler OHP - 5s Week", exercises:[
-              {text:"Warm-up: Bar x 10, 27kg x 5, 36kg x 3",detail:""},
-              {text:"Set 1: 45kg x 5",detail:""},
-              {text:"Set 2: 52.5kg x 5",detail:""},
-              {text:"Set 3: 60kg x 5+",detail:"AMRAP",amrap:true}
             ]},
             { name:"Hyrox Stations B (~15-20 min)", exercises:[
               {text:"Sled Pull",detail:"4 x 25m (competition load, 60s rest)"},
@@ -1215,6 +1171,10 @@ const PLAN = {
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
             ]},
+            { name:"Double Under Skill Progression (~10 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
+              {text:"Single-Single-Double drill",detail:"5 x 10"}
+            ]},
             { name:"Full Hyrox Simulation (no run)", exercises:[
               {text:"All 8 stations back-to-back",detail:"race-pace effort throughout"},
               {text:"2 min SkiErg or Row between each station",detail:"transition conditioning"}
@@ -1226,7 +1186,7 @@ const PLAN = {
     // WEEK 6
     { id:6, label:"Week 6", subtitle:"Race Week / Taper", dates:"Apr 27 - May 1",
       days:[
-        { date:"Mon 27 Apr", title:"Wendler Bench (Deload) + Hyrox Stations A", type:"bench",
+        { date:"Mon 27 Apr", title:"Hyrox Stations A", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1253,12 +1213,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler Bench - Deload Week", exercises:[
-              {text:"Warm-up: Bar x 10, 26kg x 5, 34kg x 3",detail:""},
-              {text:"Set 1: 42.5kg x 5",detail:""},
-              {text:"Set 2: 55kg x 5",detail:""},
-              {text:"Set 3: 65kg x 5",detail:""}
             ]},
             { name:"Hyrox Stations A (~15-20 min)", exercises:[
               {text:"Wall Balls (9kg)",detail:"3 x 15 (technique focus, 90s rest)"},
@@ -1314,7 +1268,7 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Thu 30 Apr", title:"Wendler OHP (Deload) + Hyrox Stations B", type:"ohp",
+        { date:"Thu 30 Apr", title:"Hyrox Stations B", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1341,12 +1295,6 @@ const PLAN = {
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
               {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Wendler OHP - Deload Week", exercises:[
-              {text:"Warm-up: Bar x 10, 17kg x 5, 22kg x 3",detail:""},
-              {text:"Set 1: 27.5kg x 5",detail:""},
-              {text:"Set 2: 35kg x 5",detail:""},
-              {text:"Set 3: 42.5kg x 5",detail:""}
             ]},
             { name:"Hyrox Stations B (~15-20 min)", exercises:[
               {text:"Sled Pull",detail:"2 x 25m (light, smooth)"},
@@ -2041,9 +1989,7 @@ function calcBestE1rm(){
         const sd=getSD(sKey(w.id,di,si,ei,i));
         const e=epley(sd.v1,sd.v2);
         if(e&&(!best||e>best)){best=e;
-          if(/Bench/.test(s.name)) name='Bench';
-          else if(/OHP/.test(s.name)) name='OHP';
-          else name=ex.text;
+          name=ex.text;
         }
       }
     }
@@ -2150,8 +2096,6 @@ function svgSparkline(data, width, height, color1, color2){
 function renderE1rmCharts(){
   const container=document.getElementById('progressCharts');
   const charts=[
-    {label:'Bench e1RM Trend', match:(ex,sec)=>/Wendler Bench/.test(sec.name), c1:'#d4637a', c2:'#d4936a'},
-    {label:'OHP e1RM Trend', match:(ex,sec)=>/Wendler OHP/.test(sec.name), c1:'#5a8ab8', c2:'#9a6ab8'},
     {label:'Romanian Deadlift e1RM', match:(ex)=>/Romanian Deadlift/.test(ex.text), c1:'#5ab88a', c2:'#5a8ab8'},
     {label:'Leg Press e1RM', match:(ex)=>/Leg Press/.test(ex.text), c1:'#c4a46a', c2:'#d4936a'},
   ];
