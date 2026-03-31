@@ -222,7 +222,7 @@
       <div class="header-title">Hyrox Prep</div>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
-      <span style="font-size:12px;color:var(--text-muted)">6-Week Plan</span>
+      <span style="font-size:12px;color:var(--text-muted)">5-Week Plan</span>
       <span style="font-size:10px;color:var(--text-dim);border:1px solid var(--border);padding:2px 8px;border-radius:10px;cursor:pointer" onclick="exportData()">Export</span>
       <label style="font-size:10px;color:var(--text-dim);border:1px solid var(--border);padding:2px 8px;border-radius:10px;cursor:pointer">Import<input type="file" accept=".json" style="display:none" onchange="importData(this)"></label>
     </div>
@@ -295,44 +295,22 @@
 const PLAN = {
   weeks: [
     // WEEK 1
-    { id:1, label:"Week 1", subtitle:"Cycle 1", dates:"Mar 23-29",
+    { id:1, label:"Week 1", subtitle:"Base Build", dates:"Mar 30 - Apr 5",
       days:[
-        { date:"Mon 23 Mar", title:"Hyrox Stations A", type:"hyrox",
+        { date:"Mon 30 Mar", title:"Hyrox Stations A (COMPLETED)", type:"hyrox",
           sections:[
-            { name:"Shoulder Prehab", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
-            ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
-            ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Hyrox Stations A (~15-20 min)", exercises:[
-              {text:"Wall Balls (9kg)",detail:"3 x 15 (focus on rhythm, 60s rest)"},
-              {text:"Sled Push",detail:"3 x 25m (moderate load, walk back recovery)"},
-              {text:"Farmers Carry",detail:"2 x 50m (24kg each hand)"}
+            {name:"Completed Session", exercises:[
+              {text:"Shoulder prehab: full protocol",detail:""},
+              {text:"Knee rehab: full daily protocol",detail:""},
+              {text:"Box Squat with Barbell - rehab",detail:""},
+              {text:"Wall Balls (9kg)",detail:"3 x 20"},
+              {text:"Kettlebell Swings",detail:"3 x 30"},
+              {text:"Bench maintenance moved to Tue 31 Mar",detail:""},
+              {text:"Conditioning covered by wall balls + KB swings",detail:""}
             ]}
           ]
         },
-        { date:"Tue 24 Mar", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+        { date:"Tue 31 Mar", title:"Hyrox Stations A + Bench + Pull-up Skill", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -340,213 +318,35 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
             ]},
-            { name:"Incline Walking Intervals (~30-35 min)", exercises:[
-              {text:"Flat walk warm-up",detail:"5 min"},
-              {text:"Incline walking (max incline, Zone 2-3)",detail:"20 min (speak in short sentences but not comfortably)"},
-              {text:"Faster pace at top incline (Zone 3-4)",detail:"5 x 1 min (1 min easy between efforts)"},
-              {text:"Flat walk cool down",detail:"5 min"}
+            { name:"Bench Press - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 50kg x 5, 70kg x 3",detail:""},
+              {text:"Set 1: 85kg x 5",detail:""},
+              {text:"Set 2: 85kg x 5",detail:""},
+              {text:"Set 3: 85kg x 5",detail:""}
             ]},
-            { name:"CrossFit Skill: Pull-up / Muscle-up", exercises:[
-              {text:"Strict Pull-ups",detail:"5 x 3 (full ROM, controlled descent)"},
-              {text:"Scapular Pull-ups",detail:"3 x 8"},
-              {text:"Banded Strict Pull-ups",detail:"3 x 5 (slow negative 3s)"},
-              {text:"Ring Rows (feet elevated)",detail:"3 x 10"}
-            ]}
-          ]
-        },
-        { date:"Wed 25 Mar", title:"Rest Day", type:"rest",
-          sections:[
-            { name:"Rest Day", exercises:[
-              {text:"Full rest — no training, no rehab. Recover.",detail:""}
-            ]}
-          ]
-        },
-        { date:"Thu 26 Mar", title:"Hyrox Stations B", type:"hyrox",
-          sections:[
-            { name:"Shoulder Prehab (~5 min)", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            { name:"Hyrox Stations A (~20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"4 x 15 (60s rest, rhythm focus)"},
+              {text:"Sled Push",detail:"3 x 25m (moderate, walk back recovery)"},
+              {text:"Farmers Carry",detail:"3 x 50m (24kg/hand)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
-            ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Hyrox Stations B (~15-20 min)", exercises:[
-              {text:"Sled Pull",detail:"3 x 25m (moderate load, walk back recovery)"},
-              {text:"SkiErg",detail:"3 x 250m (moderate pace, 90s rest)"},
-              {text:"Sandbag Carry",detail:"3 x 50m (20kg, steady pace)"}
-            ]}
-          ]
-        },
-        { date:"Fri 27 Mar", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
-          sections:[
-            { name:"Shoulder Prehab (~5 min)", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
-            ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Bike",detail:"25 min Zone 2 (steady state)"},
-              {text:"Row",detail:"3 x 3 min (Zone 3, 90s rest)"},
-              {text:"SkiErg",detail:"5 min Zone 2"}
-            ]},
-            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
-              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
-              {text:"Single-Single-Double drill",detail:"5 x 10"},
-              {text:"Ring Support Hold",detail:"3 x 20s (turnout at top)"},
-              {text:"Ring Dips (band assisted if needed)",detail:"3 x 5"}
-            ]}
-          ]
-        },
-        { date:"Sat 28 Mar", title:"Hyrox Mixed Simulation", type:"simulation",
-          sections:[
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
-            ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Double Under Skill Progression (~10 min)", exercises:[
-              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
-              {text:"Single-Single-Double drill",detail:"5 x 10"}
-            ]},
-            { name:"Hyrox Simulation (~30-40 min)", exercises:[
-              {text:"SkiErg",detail:"4 x 500m (moderate pace, 2 min rest)"},
-              {text:"Wall Balls (9kg)",detail:"100 reps for time (break as needed)"},
-              {text:"Sled Push + Pull combo",detail:"3 x 25m each (moderate load)"},
-              {text:"Farmers Carry",detail:"2 x 100m (24kg each hand)"}
-            ]}
-          ]
-        }
-      ]
-    },
-    // WEEK 2
-    { id:2, label:"Week 2", subtitle:"Cycle 1", dates:"Mar 30 - Apr 5",
-      days:[
-        { date:"Mon 30 Mar", title:"Hyrox Stations A", type:"hyrox",
-          sections:[
-            { name:"Shoulder Prehab (~5 min)", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
-            ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
-            ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Hyrox Stations A (~15-20 min)", exercises:[
-              {text:"Wall Balls (9kg)",detail:"4 x 15 (focus on rhythm, 60s rest)"},
-              {text:"Sled Push",detail:"3 x 25m (moderate load, walk back recovery)"},
-              {text:"Farmers Carry",detail:"3 x 50m (24kg each hand)"}
-            ]}
-          ]
-        },
-        { date:"Tue 31 Mar", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
-          sections:[
-            { name:"Shoulder Prehab (~5 min)", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
-            ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
-            ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Row",detail:"20 min Zone 2 (consistent split)"},
-              {text:"SkiErg",detail:"10 min Zone 2-3"},
-              {text:"Bike",detail:"10 min Zone 2 (cool down)"}
-            ]},
-            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
-              {text:"Strict Pull-ups",detail:"5 x 4 (full ROM, controlled)"},
-              {text:"Chest-to-Bar Pull-up attempts (strict)",detail:"5 x 2"},
+            { name:"CrossFit Skill: Pull-up / MU Progression (~10 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"5 x 3 (full ROM, controlled)"},
               {text:"Scapular Pull-ups",detail:"3 x 8"},
               {text:"Ring Rows (feet elevated)",detail:"3 x 10"}
             ]}
@@ -555,11 +355,11 @@ const PLAN = {
         { date:"Wed 1 Apr", title:"Rest Day", type:"rest",
           sections:[
             { name:"Rest Day", exercises:[
-              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+              {text:"Full rest - no training, no rehab. Recover.",detail:""}
             ]}
           ]
         },
-        { date:"Thu 2 Apr", title:"Hyrox Stations B", type:"hyrox",
+        { date:"Thu 2 Apr", title:"Hyrox Intervals + OHP Maintenance", type:"conditioning",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -567,34 +367,36 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Leg Press",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations B (~15-20 min)", exercises:[
-              {text:"Sled Pull",detail:"3 x 25m (moderate load, walk back recovery)"},
-              {text:"SkiErg",detail:"3 x 250m (moderate pace, 90s rest)"},
-              {text:"Sandbag Carry",detail:"3 x 50m (20kg, steady pace)"}
+            { name:"OHP - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 30kg x 5, 45kg x 3",detail:""},
+              {text:"Set 1: 55kg x 5",detail:""},
+              {text:"Set 2: 55kg x 5",detail:""},
+              {text:"Set 3: 55kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Engine: Zone 3-4 Intervals (~20-25 min)", exercises:[
+              {text:"Row",detail:"5 x 500m (Zone 3-4, 90s rest)"},
+              {text:"SkiErg",detail:"4 x 250m (Zone 3, 60s rest)"},
+              {text:"Bike",detail:"5 min cool down"}
             ]}
           ]
         },
-        { date:"Fri 3 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+        { date:"Fri 3 Apr", title:"Hyrox Stations B + DU/Ring Skill", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -602,59 +404,70 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Bike",detail:"25 min Zone 2 (steady state)"},
-              {text:"Row",detail:"3 x 3 min (Zone 3, 90s rest)"},
-              {text:"SkiErg",detail:"5 min Zone 2"}
-            ]},
-            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
-              {text:"Double Unders",detail:"5 x 25 (60s rest)"},
-              {text:"Unbroken Double Under attempts",detail:"5 x max"},
-              {text:"Ring Support Hold",detail:"3 x 25s"},
-              {text:"Ring Dips",detail:"4 x 5"}
-            ]}
-          ]
-        },
-        { date:"Sat 4 Apr", title:"Hyrox Mixed Simulation", type:"simulation",
-          sections:[
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
             ]},
-            { name:"Double Under Skill Progression (~10 min)", exercises:[
-              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
-              {text:"Single-Single-Double drill",detail:"5 x 10"}
+            { name:"Hyrox Stations B (~20 min)", exercises:[
+              {text:"Sled Pull",detail:"3 x 25m (moderate, walk back)"},
+              {text:"SkiErg",detail:"3 x 250m (moderate, 90s rest)"},
+              {text:"Sandbag Carry",detail:"3 x 50m (20kg)"}
             ]},
-            { name:"Hyrox Simulation (~30-40 min)", exercises:[
-              {text:"SkiErg",detail:"4 x 500m (moderate pace, 2 min rest)"},
-              {text:"Wall Balls (9kg)",detail:"100 reps for time (break as needed)"},
-              {text:"Sled Push + Pull combo",detail:"3 x 25m each (moderate load)"},
-              {text:"Farmers Carry",detail:"2 x 100m (24kg each hand)"}
+            { name:"CrossFit Skill: Double Unders + Ring Work (~10 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 20 (wrist turn focus)"},
+              {text:"Ring Support Hold",detail:"3 x 20s (turnout)"},
+              {text:"Ring Dips (band if needed)",detail:"3 x 5"}
+            ]}
+          ]
+        },
+        { date:"Sat 4 Apr", title:"Hyrox Race Simulation", type:"simulation",
+          sections:[
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Hyrox Sim: Station Flow (~35-40 min)", exercises:[
+              {text:"SkiErg",detail:"1000m (moderate)"},
+              {text:"Wall Balls (9kg)",detail:"50 reps for time"},
+              {text:"Row",detail:"500m (race effort)"},
+              {text:"Sled Push",detail:"2 x 25m (comp load)"},
+              {text:"Bike",detail:"3 min (race effort)"},
+              {text:"Sled Pull",detail:"2 x 25m (comp load)"},
+              {text:"SkiErg",detail:"500m (race effort)"},
+              {text:"Farmers Carry",detail:"100m (24kg/hand)"},
+              {text:"Row",detail:"500m (race effort)"},
+              {text:"Sandbag Carry",detail:"50m (20kg)"},
+              {text:"Cool down: 5 min easy bike",detail:""}
             ]}
           ]
         }
       ]
     },
-    // WEEK 3
-    { id:3, label:"Week 3", subtitle:"Cycle 1", dates:"Apr 6-12",
+    // WEEK 2
+    { id:2, label:"Week 2", subtitle:"Running Returns", dates:"Apr 6-12",
       days:[
-        { date:"Mon 6 Apr", title:"Hyrox Stations A", type:"hyrox",
+        { date:"Mon 6 Apr", title:"Hyrox Engine + Bench Maintenance", type:"conditioning",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -662,34 +475,36 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations A (~15-20 min)", exercises:[
-              {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
-              {text:"Sled Push",detail:"4 x 25m (competition load, 90s rest)"},
-              {text:"Farmers Carry",detail:"4 x 50m (28kg each hand)"}
+            { name:"Bench Press - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 50kg x 5, 70kg x 3",detail:""},
+              {text:"Set 1: 85kg x 5",detail:""},
+              {text:"Set 2: 85kg x 5",detail:""},
+              {text:"Set 3: 85kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Engine: Run + Machine Blend (~25 min)", exercises:[
+              {text:"Run",detail:"4 x 400m (comfortable pace, 2 min rest)"},
+              {text:"Row",detail:"10 min Zone 2-3"},
+              {text:"Bike",detail:"5 min cool down"}
             ]}
           ]
         },
-        { date:"Tue 7 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+        { date:"Tue 7 Apr", title:"Hyrox Stations A + Pull-up Skill", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -697,47 +512,42 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
             ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Row",detail:"4 x 500m (Zone 3-4, 90s rest)"},
-              {text:"SkiErg",detail:"3 x 3 min (Zone 3, 90s rest)"},
-              {text:"Bike",detail:"10 min Zone 2"}
+            { name:"Hyrox Stations A (~20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
+              {text:"Sled Push",detail:"4 x 25m (comp load, 90s rest)"},
+              {text:"Farmers Carry",detail:"4 x 50m (28kg/hand)"}
             ]},
-            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
-              {text:"Strict Pull-ups",detail:"4 x 5"},
-              {text:"Chest-to-Bar Pull-up attempts (strict)",detail:"5 x 3"},
-              {text:"Bar Muscle-Up negative",detail:"5 x 1 (slow 5s descent)"},
-              {text:"Hip-to-Bar drill (band assisted)",detail:"3 x 5"}
+            { name:"CrossFit Skill: Pull-up / MU Progression (~10 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"5 x 4"},
+              {text:"Chest-to-Bar attempts (strict)",detail:"5 x 2"},
+              {text:"Scapular Pull-ups",detail:"3 x 8"}
             ]}
           ]
         },
         { date:"Wed 8 Apr", title:"Rest Day", type:"rest",
           sections:[
             { name:"Rest Day", exercises:[
-              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+              {text:"Full rest - no training, no rehab. Recover.",detail:""}
             ]}
           ]
         },
-        { date:"Thu 9 Apr", title:"Hyrox Stations B", type:"hyrox",
+        { date:"Thu 9 Apr", title:"Hyrox Intervals + OHP Maintenance", type:"conditioning",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -745,95 +555,100 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Leg Press",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations B (~15-20 min)", exercises:[
-              {text:"Sled Pull",detail:"4 x 25m (competition load, 90s rest)"},
+            { name:"OHP - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 30kg x 5, 45kg x 3",detail:""},
+              {text:"Set 1: 55kg x 5",detail:""},
+              {text:"Set 2: 55kg x 5",detail:""},
+              {text:"Set 3: 55kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Engine: Run + Intervals (~25 min)", exercises:[
+              {text:"Run",detail:"5 x 400m (moderate, 90s rest)"},
+              {text:"SkiErg",detail:"3 x 250m (Zone 3, 60s rest)"}
+            ]}
+          ]
+        },
+        { date:"Fri 10 Apr", title:"Hyrox Stations B + DU/Ring Skill", type:"hyrox",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
+            ]},
+            { name:"Hyrox Stations B (~20 min)", exercises:[
+              {text:"Sled Pull",detail:"4 x 25m (comp load, 90s rest)"},
               {text:"SkiErg",detail:"4 x 250m (race pace, 60s rest)"},
               {text:"Sandbag Carry",detail:"4 x 50m (20kg, 60s rest)"}
+            ]},
+            { name:"CrossFit Skill: Double Unders + Ring Work (~10 min)", exercises:[
+              {text:"Double Unders",detail:"5 x 25 (60s rest)"},
+              {text:"Unbroken DU attempts",detail:"5 x max"},
+              {text:"Ring Dips",detail:"4 x 5"}
             ]}
           ]
         },
-        { date:"Fri 10 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+        { date:"Sat 11 Apr", title:"Hyrox Race Simulation", type:"simulation",
           sections:[
-            { name:"Shoulder Prehab (~5 min)", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
-            ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Bike",detail:"5 x 3 min (Zone 3-4, 60s rest)"},
-              {text:"Row",detail:"3 x 750m (Zone 3, 2 min rest)"},
-              {text:"SkiErg",detail:"5 min Zone 2"}
-            ]},
-            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
-              {text:"Double Unders",detail:"4 x 30 (50s rest)"},
-              {text:"Double Under EMOM",detail:"8 min (15 DU per min)"},
-              {text:"Ring Dips",detail:"4 x 6"},
-              {text:"Ring Muscle-Up transition drill (low rings)",detail:"5 x 3"}
-            ]}
-          ]
-        },
-        { date:"Sat 11 Apr", title:"Hyrox Mixed Simulation", type:"simulation",
-          sections:[
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Double Under Skill Progression (~10 min)", exercises:[
-              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
-              {text:"Single-Single-Double drill",detail:"5 x 10"}
-            ]},
-            { name:"Hyrox Simulation (~30-40 min)", exercises:[
-              {text:"SkiErg",detail:"3 x 750m (progressive effort, 2 min rest)"},
-              {text:"Wall Balls (9kg)",detail:"100 reps for time (target sub-5 min)"},
-              {text:"Sled Push + Pull combo",detail:"4 x 25m each (competition load)"},
-              {text:"Sandbag Carry",detail:"3 x 50m (20kg)"},
-              {text:"Farmers Carry",detail:"2 x 100m (28kg each hand)"}
+            { name:"Hyrox Sim: Run + Stations (~40-50 min)", exercises:[
+              {text:"Run 400m + Wall Balls 50 reps",detail:"Round 1"},
+              {text:"Run 400m + Sled Push 25m + Pull 25m",detail:"Round 2"},
+              {text:"Run 400m + Farmers Carry 100m",detail:"Round 3"},
+              {text:"Run 400m + SkiErg 500m",detail:"Round 4"},
+              {text:"Cool down: 5 min easy bike",detail:""}
             ]}
           ]
         }
       ]
     },
-    // WEEK 4
-    { id:4, label:"Week 4", subtitle:"Deload", dates:"Apr 13-19",
+    // WEEK 3
+    { id:3, label:"Week 3", subtitle:"Race-Specific Build", dates:"Apr 13-19",
       days:[
-        { date:"Mon 13 Apr", title:"Hyrox Stations A", type:"hyrox",
+        { date:"Mon 13 Apr", title:"Hyrox Engine + Bench Maintenance", type:"conditioning",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -841,34 +656,36 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations A (~15-20 min)", exercises:[
-              {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
-              {text:"Sled Push",detail:"4 x 25m (competition load, 90s rest)"},
-              {text:"Farmers Carry",detail:"4 x 50m (28kg each hand)"}
+            { name:"Bench Press - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 50kg x 5, 70kg x 3",detail:""},
+              {text:"Set 1: 85kg x 5",detail:""},
+              {text:"Set 2: 85kg x 5",detail:""},
+              {text:"Set 3: 85kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Engine: Run + Machine Blend (~25 min)", exercises:[
+              {text:"Run",detail:"4 x 600m (moderate pace, 90s rest)"},
+              {text:"SkiErg",detail:"8 min Zone 3"},
+              {text:"Bike",detail:"5 min cool down"}
             ]}
           ]
         },
-        { date:"Tue 14 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+        { date:"Tue 14 Apr", title:"Hyrox Stations A + Pull-up Skill", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -876,47 +693,42 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
             ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Row",detail:"4 x 500m (Zone 3-4, 90s rest)"},
-              {text:"SkiErg",detail:"3 x 3 min (Zone 3, 90s rest)"},
-              {text:"Bike",detail:"10 min Zone 2"}
+            { name:"Hyrox Stations A (~20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"5 x 20 (50s rest)"},
+              {text:"Sled Push",detail:"4 x 25m (comp load, 90s rest)"},
+              {text:"Farmers Carry",detail:"4 x 50m (28kg/hand)"}
             ]},
-            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
-              {text:"Strict Pull-ups",detail:"3 x 5 (deload)"},
-              {text:"Chest-to-Bar strict",detail:"3 x 3"},
-              {text:"Bar Muscle-Up negative",detail:"3 x 1 (slow controlled)"},
-              {text:"Scapular Pull-ups",detail:"2 x 8"}
+            { name:"CrossFit Skill: Pull-up / MU Progression (~10 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"4 x 5"},
+              {text:"Chest-to-Bar strict",detail:"5 x 3"},
+              {text:"Bar MU negative",detail:"5 x 1 (5s descent)"}
             ]}
           ]
         },
         { date:"Wed 15 Apr", title:"Rest Day", type:"rest",
           sections:[
             { name:"Rest Day", exercises:[
-              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+              {text:"Full rest - no training, no rehab. Recover.",detail:""}
             ]}
           ]
         },
-        { date:"Thu 16 Apr", title:"Hyrox Stations B", type:"hyrox",
+        { date:"Thu 16 Apr", title:"Hyrox Intervals + OHP Maintenance", type:"conditioning",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -924,94 +736,98 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Leg Press",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations B (~15-20 min)", exercises:[
-              {text:"Sled Pull",detail:"4 x 25m (competition load, 90s rest)"},
+            { name:"OHP - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 30kg x 5, 45kg x 3",detail:""},
+              {text:"Set 1: 55kg x 5",detail:""},
+              {text:"Set 2: 55kg x 5",detail:""},
+              {text:"Set 3: 55kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Engine: Run + Intervals (~25 min)", exercises:[
+              {text:"Run",detail:"4 x 800m (race effort, 90s rest)"},
+              {text:"Row",detail:"3 x 500m (Zone 3, 90s rest)"}
+            ]}
+          ]
+        },
+        { date:"Fri 17 Apr", title:"Hyrox Stations B + DU/Ring Skill", type:"hyrox",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
+            ]},
+            { name:"Hyrox Stations B (~20 min)", exercises:[
+              {text:"Sled Pull",detail:"4 x 25m (comp load, 90s rest)"},
               {text:"SkiErg",detail:"4 x 250m (race pace, 60s rest)"},
               {text:"Sandbag Carry",detail:"4 x 50m (20kg, 60s rest)"}
+            ]},
+            { name:"CrossFit Skill: Double Unders + Ring Work (~10 min)", exercises:[
+              {text:"Double Unders",detail:"4 x 30 (50s rest)"},
+              {text:"DU EMOM",detail:"8 min (15 per min)"},
+              {text:"Ring Dips",detail:"4 x 6"},
+              {text:"Ring MU transition (low rings)",detail:"5 x 3"}
             ]}
           ]
         },
-        { date:"Fri 17 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
+        { date:"Sat 18 Apr", title:"Hyrox Race Simulation", type:"simulation",
           sections:[
-            { name:"Shoulder Prehab (~5 min)", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
-            ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Bike",detail:"5 x 3 min (Zone 3-4, 60s rest)"},
-              {text:"Row",detail:"3 x 750m (Zone 3, 2 min rest)"},
-              {text:"SkiErg",detail:"5 min Zone 2"}
-            ]},
-            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
-              {text:"Double Unders",detail:"3 x 20 (easy pace)"},
-              {text:"Ring Support Hold",detail:"2 x 20s"},
-              {text:"Ring Dips",detail:"3 x 5 (light)"}
-            ]}
-          ]
-        },
-        { date:"Sat 18 Apr", title:"Hyrox Mixed Simulation", type:"simulation",
-          sections:[
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Double Under Skill Progression (~10 min)", exercises:[
-              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
-              {text:"Single-Single-Double drill",detail:"5 x 10"}
-            ]},
-            { name:"Hyrox Simulation (~30-40 min)", exercises:[
-              {text:"SkiErg",detail:"3 x 750m (progressive effort, 2 min rest)"},
-              {text:"Wall Balls (9kg)",detail:"100 reps for time (target sub-5 min)"},
-              {text:"Sled Push + Pull combo",detail:"4 x 25m each (competition load)"},
-              {text:"Sandbag Carry",detail:"3 x 50m (20kg)"},
-              {text:"Farmers Carry",detail:"2 x 100m (28kg each hand)"}
+            { name:"Hyrox Sim: Run + Stations (~40-50 min)", exercises:[
+              {text:"Run 600m + Station (rotate) x 6 rounds",detail:"All stations at competition load"},
+              {text:"Cool down: 5 min easy",detail:""}
             ]}
           ]
         }
       ]
     },
-    // WEEK 5
-    { id:5, label:"Week 5", subtitle:"Cycle 2", dates:"Apr 20-26",
+    // WEEK 4
+    { id:4, label:"Week 4", subtitle:"Sharpening", dates:"Apr 20-26",
       days:[
-        { date:"Mon 20 Apr", title:"Hyrox Stations A", type:"hyrox",
+        { date:"Mon 20 Apr", title:"Hyrox Engine + Bench Maintenance", type:"conditioning",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1019,34 +835,35 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations A (~15-20 min)", exercises:[
-              {text:"Wall Balls (9kg)",detail:"4 x 25 (45s rest)"},
-              {text:"Sled Push",detail:"4 x 25m (competition load, 60s rest)"},
-              {text:"Farmers Carry",detail:"3 x 75m (28kg each hand)"}
+            { name:"Bench Press - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 50kg x 5, 70kg x 3",detail:""},
+              {text:"Set 1: 85kg x 5",detail:""},
+              {text:"Set 2: 85kg x 5",detail:""},
+              {text:"Set 3: 85kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Engine: Race Pace Intervals (~25 min)", exercises:[
+              {text:"Run",detail:"5 x 800m (target race pace, 90s rest)"},
+              {text:"Row",detail:"5 min easy cool down"}
             ]}
           ]
         },
-        { date:"Tue 21 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+        { date:"Tue 21 Apr", title:"Hyrox Stations A + Pull-up Skill", type:"hyrox",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1054,35 +871,31 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
             ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Row",detail:"5 x 500m (Zone 4, 75s rest)"},
-              {text:"SkiErg",detail:"4 x 3 min (Zone 3-4, 60s rest)"},
-              {text:"Bike",detail:"5 min easy"}
+            { name:"Hyrox Stations A - Race Pace (~20 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"4 x 25 (45s rest)"},
+              {text:"Sled Push",detail:"4 x 25m (comp load, 60s rest)"},
+              {text:"Farmers Carry",detail:"3 x 75m (28kg/hand)"}
             ]},
-            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
+            { name:"CrossFit Skill: Pull-up / MU Progression (~10 min)", exercises:[
               {text:"Strict Pull-ups",detail:"4 x 5"},
               {text:"Chest-to-Bar strict",detail:"4 x 3"},
-              {text:"Bar Muscle-Up attempt",detail:"3 x 1 (full rep, focus on turnover)"},
+              {text:"Bar MU attempt",detail:"3 x 1 (focus: turnover)"},
               {text:"Hip-to-Bar drill (minimal band)",detail:"4 x 3"}
             ]}
           ]
@@ -1090,11 +903,11 @@ const PLAN = {
         { date:"Wed 22 Apr", title:"Rest Day", type:"rest",
           sections:[
             { name:"Rest Day", exercises:[
-              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+              {text:"Full rest - no training, no rehab. Recover.",detail:""}
             ]}
           ]
         },
-        { date:"Thu 23 Apr", title:"Hyrox Stations B", type:"hyrox",
+        { date:"Thu 23 Apr", title:"Hyrox Intervals + OHP Maintenance", type:"conditioning",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1102,91 +915,105 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Leg Press",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations B (~15-20 min)", exercises:[
-              {text:"Sled Pull",detail:"4 x 25m (competition load, 60s rest)"},
+            { name:"OHP - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 30kg x 5, 45kg x 3",detail:""},
+              {text:"Set 1: 55kg x 5",detail:""},
+              {text:"Set 2: 55kg x 5",detail:""},
+              {text:"Set 3: 55kg x 5",detail:""}
+            ]},
+            { name:"Hyrox Engine: Race Sim Intervals (~25 min)", exercises:[
+              {text:"Run",detail:"4 x 1km (race pace, 2 min rest)"},
+              {text:"Row",detail:"2 x 500m (Zone 3, easy)"}
+            ]}
+          ]
+        },
+        { date:"Fri 24 Apr", title:"Hyrox Stations B + DU/Ring Skill", type:"hyrox",
+          sections:[
+            { name:"Shoulder Prehab (~5 min)", exercises:[
+              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
+              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
+              {text:"Banded Wall Slide",detail:"3 x 8"},
+              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+            ]},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
+              {text:"Switch Step at Wall",detail:"1 x 10"},
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
+              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
+              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
+              {text:"Step Downs",detail:"2 x 5"},
+              {text:"Walking Lunges",detail:"3 x 6"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            ]},
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
+            ]},
+            { name:"Hyrox Stations B - Race Pace (~20 min)", exercises:[
+              {text:"Sled Pull",detail:"4 x 25m (comp load, 60s rest)"},
               {text:"SkiErg",detail:"4 x 300m (race pace, 60s rest)"},
-              {text:"Sandbag Carry",detail:"3 x 75m (20kg, 60s rest)"}
-            ]}
-          ]
-        },
-        { date:"Fri 24 Apr", title:"Conditioning + Double Unders + Ring Work", type:"conditioning",
-          sections:[
-            { name:"Shoulder Prehab (~5 min)", exercises:[
-              {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
-              {text:"90/90 Isometric Holds",detail:"3 x 15s"},
-              {text:"Banded Wall Slide",detail:"3 x 8"},
-              {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
+              {text:"Sandbag Carry",detail:"3 x 75m (20kg)"}
             ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Bike",detail:"6 x 2 min (Zone 4, 60s rest)"},
-              {text:"Row",detail:"4 x 500m (Zone 4, 90s rest)"}
-            ]},
-            { name:"CrossFit Skill: Double Unders + Ring Work (~15 min)", exercises:[
+            { name:"CrossFit Skill: Double Unders + Ring Work (~10 min)", exercises:[
               {text:"Double Unders",detail:"4 x 35 (45s rest)"},
-              {text:"Double Under EMOM",detail:"10 min (20 DU per min)"},
+              {text:"DU EMOM",detail:"10 min (20 per min)"},
               {text:"Ring Dips",detail:"4 x 6"},
-              {text:"Ring Muscle-Up transition drill (low rings)",detail:"5 x 3"}
+              {text:"Ring MU transition (low rings)",detail:"5 x 3"}
             ]}
           ]
         },
-        { date:"Sat 25 Apr", title:"Hyrox Full Simulation", type:"simulation",
+        { date:"Sat 25 Apr", title:"Full Hyrox Simulation: Race Dress Rehearsal", type:"simulation",
           sections:[
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Double Under Skill Progression (~10 min)", exercises:[
-              {text:"Double Unders",detail:"5 x 20 (rest as needed, focus on wrist turn)"},
-              {text:"Single-Single-Double drill",detail:"5 x 10"}
-            ]},
-            { name:"Full Hyrox Simulation (no run)", exercises:[
-              {text:"All 8 stations back-to-back",detail:"race-pace effort throughout"},
-              {text:"2 min SkiErg or Row between each station",detail:"transition conditioning"}
+            { name:"Full Sim: Race Rehearsal (~50-60 min)", exercises:[
+              {text:"1km Run + 1000m SkiErg",detail:""},
+              {text:"1km Run + 50m Sled Push",detail:""},
+              {text:"1km Run + 50m Sled Pull",detail:""},
+              {text:"1km Run + 1000m Row",detail:""},
+              {text:"1km Run + 200m Farmers Carry (24kg/hand)",detail:""},
+              {text:"1km Run + 100 Wall Balls (or split with partner)",detail:""},
+              {text:"1km Run + Sandbag Carry 200m",detail:""},
+              {text:"Skip burpee broad jumps - sub 500m Row",detail:""},
+              {text:"Record all split times",detail:"This is your pacing data for race day"}
             ]}
           ]
         }
       ]
     },
-    // WEEK 6
-    { id:6, label:"Week 6", subtitle:"Race Week / Taper", dates:"Apr 27 - May 1",
+    // WEEK 5
+    { id:5, label:"Week 5", subtitle:"Race Week / Taper", dates:"Apr 27 - May 1",
       days:[
-        { date:"Mon 27 Apr", title:"Hyrox Stations A", type:"hyrox",
+        { date:"Mon 27 Apr", title:"Taper: Light Conditioning", type:"taper",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1194,34 +1021,35 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"}
             ]},
-            { name:"Hyrox Stations A (~15-20 min)", exercises:[
-              {text:"Wall Balls (9kg)",detail:"3 x 15 (technique focus, 90s rest)"},
-              {text:"Sled Push",detail:"2 x 25m (light, smooth)"},
-              {text:"Farmers Carry",detail:"2 x 50m (24kg each hand)"}
+            { name:"Bench Press - Maintenance (~10 min)", exercises:[
+              {text:"Warm-up: Bar x 10, 50kg x 5, 70kg x 3",detail:""},
+              {text:"Set 1: 85kg x 5",detail:""},
+              {text:"Set 2: 85kg x 5",detail:""},
+              {text:"Set 3: 85kg x 5",detail:""}
+            ]},
+            { name:"Taper Conditioning (~15 min)", exercises:[
+              {text:"Row",detail:"10 min Zone 2 (easy)"},
+              {text:"Bike",detail:"5 min Zone 1"}
             ]}
           ]
         },
-        { date:"Tue 28 Apr", title:"Conditioning + Pull-up/MU Progression", type:"conditioning",
+        { date:"Tue 28 Apr", title:"Taper: Light Stations", type:"taper",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -1229,92 +1057,82 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
+            { name:"Knee Rehab: Daily Protocol (~15 min)", exercises:[
+              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
               {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
+              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
               {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
               {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
               {text:"Step Downs",detail:"2 x 5"},
               {text:"Walking Lunges",detail:"3 x 6"},
               {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8"},
               {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
               {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
             ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
+            { name:"Knee Rehab: Heavy (~5 min)", exercises:[
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
             ]},
-            { name:"Zone 2-4 Conditioning (~25-30 min)", exercises:[
-              {text:"Row",detail:"3 x 500m (Zone 3, 2 min rest)"},
-              {text:"SkiErg",detail:"2 x 3 min (Zone 2-3, 2 min rest)"},
-              {text:"Bike",detail:"10 min Zone 1-2"}
+            { name:"Taper Stations (~10 min)", exercises:[
+              {text:"Wall Balls (9kg)",detail:"2 x 15 (easy)"},
+              {text:"Sled Push",detail:"2 x 25m (light)"},
+              {text:"Farmers Carry",detail:"2 x 50m (24kg/hand)"}
             ]},
-            { name:"CrossFit Skill: Pull-up / Muscle-up Progression (~15 min)", exercises:[
-              {text:"Strict Pull-ups",detail:"3 x 3 (light, prime the body)"},
-              {text:"Chest-to-Bar strict",detail:"2 x 3"},
-              {text:"Mobility work and hang practice",detail:"easy"}
+            { name:"CrossFit Skill: Pull-up (~10 min)", exercises:[
+              {text:"Strict Pull-ups",detail:"3 x 3 (light)"},
+              {text:"Chest-to-Bar",detail:"2 x 3"},
+              {text:"Hang and mobility only",detail:"easy"}
             ]}
           ]
         },
         { date:"Wed 29 Apr", title:"Rest Day", type:"rest",
           sections:[
             { name:"Rest Day", exercises:[
-              {text:"Full rest — no training, no rehab. Recover.",detail:""}
+              {text:"Full rest. Hydrate. Carb load starts.",detail:""}
             ]}
           ]
         },
-        { date:"Thu 30 Apr", title:"Hyrox Stations B", type:"hyrox",
+        { date:"Thu 30 Apr", title:"Pre-Race: Light Movement Only", type:"taper",
           sections:[
+            { name:"Knee Rehab: Light Activation Only (~10 min)", exercises:[
+              {text:"SL Star Excursion",detail:"2 x 4"},
+              {text:"Walking Lunges",detail:"2 x 6 (light)"},
+              {text:"Step Downs",detail:"2 x 5"}
+            ]},
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
               {text:"90/90 Isometric Holds",detail:"3 x 15s"},
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Explosive / Impact (~5 min)", exercises:[
-              {text:"Heavy Split Jumps (impact training)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps",detail:"3 x 10"}
-            ]},
-            { name:"Knee Rehab: Activation / Prehab (~10 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
-              {text:"Knee Extension Single Leg Machine (90-40 deg)",detail:"3 x 8"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
-            ]},
-            { name:"Knee Rehab: Heavy (doubles as training volume)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Leg Press",detail:"3 x 12"},
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8"}
-            ]},
-            { name:"Hyrox Stations B (~15-20 min)", exercises:[
-              {text:"Sled Pull",detail:"2 x 25m (light, smooth)"},
-              {text:"SkiErg",detail:"2 x 250m (easy pace)"},
-              {text:"Sandbag Carry",detail:"2 x 50m (light)"}
+            { name:"Light Movement (~10 min)", exercises:[
+              {text:"10 min easy bike or walk",detail:""},
+              {text:"Dynamic stretching + mobility",detail:""},
+              {text:"Visualise race. Plan station splits with partner.",detail:""}
             ]}
           ]
         },
         { date:"Fri 1 May", title:"RACE DAY - HYROX MALE DOUBLES", type:"raceday",
           sections:[
-            { name:"Pre-Race", exercises:[
-              {text:"Light knee rehab (activation exercises only)",detail:"10 min"},
-              {text:"Dynamic warm-up + light SkiErg",detail:"3 min"},
-              {text:"Hydrate well, carb load 24-48 hours prior",detail:""}
+            { name:"Pre-Race (~15 min)", exercises:[
+              {text:"Knee rehab: activation only (star excursion, step downs, lunges)",detail:"10 min"},
+              {text:"Shoulder prehab: full protocol",detail:""},
+              {text:"Dynamic warm-up: 5 min light jog + arm circles + leg swings",detail:""},
+              {text:"3 min SkiErg or Row easy",detail:""},
+              {text:"2 x 5 wall balls + 2 x short sled push to prime",detail:""}
             ]},
             { name:"Race Strategy", exercises:[
-              {text:"Pace first 4 stations, push last 4",detail:""},
-              {text:"Record your finish time",detail:"Use notes below"},
-              {text:"Record station splits",detail:"Use notes below"},
-              {text:"Lessons learned",detail:"Use notes below"}
+              {text:"Pace first 4 run segments - do not go out hot",detail:""},
+              {text:"Communicate with partner on station splits",detail:""},
+              {text:"Push last 2 stations when finish is close",detail:""},
+              {text:"Hydration: sip between every station",detail:""}
+            ]},
+            { name:"Race Log", exercises:[
+              {text:"Finish Time:",detail:"Use notes below"},
+              {text:"Run splits:",detail:"Use notes below"},
+              {text:"Station splits:",detail:"Use notes below"},
+              {text:"Partner communication:",detail:"Use notes below"},
+              {text:"Lessons for next time:",detail:"Use notes below"}
             ]}
           ]
         }
@@ -1350,8 +1168,8 @@ function getSD(key){ return state.sets[key]||{done:false,v1:'',v2:''} }
 
 function findCurrentWeek(){
   const today = new Date();
-  const ws = [new Date(2026,2,23),new Date(2026,2,30),new Date(2026,3,6),
-    new Date(2026,3,13),new Date(2026,3,20),new Date(2026,3,27)];
+  const ws = [new Date(2026,2,30),new Date(2026,3,6),new Date(2026,3,13),
+    new Date(2026,3,20),new Date(2026,3,27)];
   for(let i=ws.length-1;i>=0;i--){ if(today>=ws[i]) return i }
   return 0;
 }
@@ -2097,7 +1915,9 @@ function renderE1rmCharts(){
   const container=document.getElementById('progressCharts');
   const charts=[
     {label:'Romanian Deadlift e1RM', match:(ex)=>/Romanian Deadlift/.test(ex.text), c1:'#5ab88a', c2:'#5a8ab8'},
-    {label:'Leg Press e1RM', match:(ex)=>/Leg Press/.test(ex.text), c1:'#c4a46a', c2:'#d4936a'},
+    {label:'Box Squat e1RM', match:(ex)=>/Modified Box Squat/.test(ex.text), c1:'#c4a46a', c2:'#d4936a'},
+    {label:'Bench e1RM', match:(ex,sec)=>/Bench Press/.test(sec.name), c1:'#d4637a', c2:'#d4936a'},
+    {label:'OHP e1RM', match:(ex,sec)=>/OHP/.test(sec.name), c1:'#5a8ab8', c2:'#9a6ab8'},
   ];
   let h='';
   charts.forEach(ch=>{
