@@ -1071,7 +1071,7 @@ function parseEx(text, detail, amrap){
     return {type:'warmup', n:parts.length, per:parts.map(p=>({label:p})), amrap:false};
   }
   // Weighted barbell/machine exercises
-  if(/Romanian Deadlift|Leg Press|Modified Box Squat/i.test(text)){
+  if(/Romanian Deadlift|Leg Press|Modified Box Squat|Knee Extension/i.test(text)){
     const m = detail.match(/^(\d+)\s*x\s*(\d+)/);
     const sets=m?parseInt(m[1]):1, reps=m?parseInt(m[2]):0;
     return {type:'weighted', n:sets, per:Array(sets).fill(null).map(()=>({r:reps})), amrap:false};
