@@ -743,16 +743,9 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Plyometric/Loaded (~10 min)", exercises:[
-              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"}
-            ]},
-            { name:"Knee Rehab: Heavy (~10 min)", exercises:[
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"},
-              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8 @ 14kg"}
+            { name:"Knee Rehab: Strength (~15 min)", exercises:[
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"}
             ]},
             { name:"Hyrox Stations B (~20 min)", exercises:[
               {text:"Sled Pull",detail:"3 x 25m (comp load, 90s rest)"},
@@ -766,19 +759,10 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Sat 18 Apr", title:"Race Sim (No Running)", type:"simulation",
+        { date:"Sat 18 Apr", title:"Rest Day", type:"rest",
           sections:[
-            { name:"Hyrox Sim: Station Flow (~35 min)", exercises:[
-              {text:"SkiErg",detail:"500m (moderate)"},
-              {text:"Wall Balls (9kg)",detail:"25 reps"},
-              {text:"Row",detail:"500m (race effort)"},
-              {text:"Sled Push + Pull",detail:"25m each (comp load)"},
-              {text:"SkiErg",detail:"250m (race effort)"},
-              {text:"Farmers Carry",detail:"100m (28kg/hand)"},
-              {text:"Row",detail:"500m (race effort)"},
-              {text:"Sandbag Lunges",detail:"30m (20kg)"},
-              {text:"All continuous - 30-60s transitions only",detail:""},
-              {text:"Record all split times",detail:"This is pacing data"}
+            { name:"Rest Day", exercises:[
+              {text:"Full rest - no training, no rehab. Recover.",detail:""}
             ]}
           ]
         }
@@ -787,7 +771,7 @@ const PLAN = {
     // WEEK 4
     { id:4, label:"Week 4", subtitle:"Taper Start", dates:"Apr 20-26",
       days:[
-        { date:"Mon 20 Apr", title:"Stations A + Bench - Taper", type:"taper",
+        { date:"Mon 20 Apr", title:"Stations A + Bench + Strength", type:"taper",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -795,16 +779,13 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Plyometric/Loaded (~10 min)", exercises:[
-              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"}
-            ]},
-            { name:"Knee Rehab: Heavy (~10 min)", exercises:[
+            { name:"Knee Rehab: Strength (~30 min)", exercises:[
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
               {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8 @ 14kg"}
+              {text:"Leg Press",detail:"3 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8 (load manual)"}
             ]},
             { name:"Bench Press - Taper (~8 min)", exercises:[
               {text:"Warm-up: Bar x 10, 50kg x 5, 70kg x 3",detail:""},
@@ -818,14 +799,13 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Tue 21 Apr", title:"Light Skills (Run Day)", type:"taper",
+        { date:"Tue 21 Apr", title:"Run Day + Plyo Rehab", type:"taper",
           sections:[
-            { name:"Knee Rehab: Activation (~5 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            { name:"Knee Rehab: Plyo (~20 min)", exercises:[
+              {text:"Forward Line Jumps",detail:"2 x 10"},
+              {text:"Narrow Squat Jumps",detail:"2 x 10"},
+              {text:"Box Jumps",detail:"3 x 10"},
+              {text:"Broad Jumps Forward",detail:"4 x 10"}
             ]},
             { name:"CrossFit Skill: Pull-up - Reduced (~10 min)", exercises:[
               {text:"Strict Pull-ups",detail:"3 x 3"},
@@ -840,7 +820,7 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Thu 23 Apr", title:"OHP + Light Conditioning (Run Day)", type:"taper",
+        { date:"Thu 23 Apr", title:"Mini Sim + Strength Rehab", type:"taper",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -848,29 +828,24 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Activation (~5 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            { name:"Mini Sim (~25 min)", exercises:[
+              {text:"500m Run",detail:"Race pace"},
+              {text:"Wall Balls (9kg)",detail:"100 reps"},
+              {text:"500m Run",detail:"Race pace"},
+              {text:"Burpees",detail:"30 reps"},
+              {text:"Record total time",detail:"Continuous, no rest between stations"}
             ]},
-            { name:"Knee Rehab: Heavy (~10 min)", exercises:[
+            { name:"Knee Rehab: Strength (~30 min)", exercises:[
+              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"},
+              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
               {text:"Leg Press",detail:"3 x 12"},
-              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8 @ 14kg"}
-            ]},
-            { name:"OHP - Taper (~8 min)", exercises:[
-              {text:"Warm-up: Bar x 10, 30kg x 5, 45kg x 3",detail:""},
-              {text:"Set 1: 55kg x 5",detail:""},
-              {text:"Set 2: 55kg x 5",detail:""}
-            ]},
-            { name:"Conditioning - Reduced (~10 min)", exercises:[
-              {text:"SkiErg",detail:"2 x 250m (Zone 3, 90s rest)"},
-              {text:"Bike",detail:"5 min cool down"}
+              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8 (load manual)"}
             ]}
           ]
         },
-        { date:"Fri 24 Apr", title:"Stations B + DU/Ring - Taper", type:"taper",
+        { date:"Fri 24 Apr", title:"Stations B + Plyo Rehab", type:"taper",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -878,16 +853,11 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Plyometric/Loaded (~10 min)", exercises:[
-              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"}
-            ]},
-            { name:"Knee Rehab: Heavy (~10 min)", exercises:[
-              {text:"Romanian Deadlift (RDL)",detail:"3 x 8-12"},
-              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8 @ 14kg"}
+            { name:"Knee Rehab: Plyo (~20 min)", exercises:[
+              {text:"Forward Line Jumps",detail:"2 x 10"},
+              {text:"Narrow Squat Jumps",detail:"2 x 10"},
+              {text:"Box Jumps",detail:"3 x 10"},
+              {text:"Broad Jumps Forward",detail:"4 x 10"}
             ]},
             { name:"Hyrox Stations B - Taper (~12 min)", exercises:[
               {text:"Sled Pull",detail:"2 x 25m (comp load, 90s rest)"},
@@ -900,16 +870,10 @@ const PLAN = {
             ]}
           ]
         },
-        { date:"Sat 25 Apr", title:"Dress Rehearsal Sim (No Running)", type:"simulation",
+        { date:"Sat 25 Apr", title:"Rest Day", type:"rest",
           sections:[
-            { name:"Hyrox Sim: Dress Rehearsal (~25 min)", exercises:[
-              {text:"SkiErg",detail:"500m (race effort)"},
-              {text:"Wall Balls (6kg)",detail:"15 reps"},
-              {text:"Row",detail:"500m (race effort)"},
-              {text:"Sled Push",detail:"25m (comp load)"},
-              {text:"Farmers Carry",detail:"75m (24kg/hand)"},
-              {text:"Touch each station once - race effort, low volume",detail:""},
-              {text:"Record pacing data",detail:"Last hard sim before race"}
+            { name:"Rest Day", exercises:[
+              {text:"Full rest - no training, no rehab. Recover.",detail:""}
             ]}
           ]
         }
@@ -918,7 +882,7 @@ const PLAN = {
     // WEEK 5
     { id:5, label:"Week 5", subtitle:"Race Week", dates:"Apr 27 - May 1",
       days:[
-        { date:"Mon 27 Apr", title:"Light Touch", type:"taper",
+        { date:"Mon 27 Apr", title:"Last Loaded Session", type:"taper",
           sections:[
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -926,16 +890,13 @@ const PLAN = {
               {text:"Banded Wall Slide",detail:"3 x 8"},
               {text:"Egyptian Stretch",detail:"3 x 8 (3s hold)"}
             ]},
-            { name:"Knee Rehab: Plyometric/Loaded - Last Session (~10 min)", exercises:[
-              {text:"Heavy Split Jumps (impact/physio Rx)",detail:"3 x 3"},
-              {text:"Switch Step at Wall",detail:"1 x 10"},
-              {text:"Step/Box Jumps (physio Rx)",detail:"3 x 10"},
-              {text:"Walking Lunges",detail:"3 x 6"},
-              {text:"ATG Heels Elevated Narrow Squat",detail:"3 x 8"}
-            ]},
-            { name:"Knee Rehab: Heavy (~10 min)", exercises:[
-              {text:"Modified Box Squat with Barbell",detail:"3 x 12"},
-              {text:"Knee Extension SL Machine (90-40 deg)",detail:"3 x 8 @ 14kg"}
+            { name:"Knee Rehab: Strength (2 sets - final loaded session)", exercises:[
+              {text:"Copenhagen Hip Adduction",detail:"2 x 5 (5s hold)"},
+              {text:"ATG Heels Elevated Narrow Squat",detail:"2 x 8"},
+              {text:"Modified Box Squat with Barbell",detail:"2 x 12"},
+              {text:"Leg Press",detail:"2 x 12"},
+              {text:"Romanian Deadlift (RDL)",detail:"2 x 8-12"},
+              {text:"Knee Extension SL Machine (90-40 deg)",detail:"2 x 8 (load manual)"}
             ]},
             { name:"Bench - Activation (~5 min)", exercises:[
               {text:"Warm-up: Bar x 10, 50kg x 5, 70kg x 3",detail:""},
@@ -951,12 +912,8 @@ const PLAN = {
         },
         { date:"Tue 28 Apr", title:"Light Skills (Run Day)", type:"taper",
           sections:[
-            { name:"Knee Rehab: Activation (~5 min)", exercises:[
-              {text:"SL Star Excursion (4 points)",detail:"2 x 4"},
-              {text:"Lateral Step Down (heel tap)",detail:"2 x 5"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Resisted Crab Walks (V3)",detail:"3 x 12"},
-              {text:"Copenhagen Hip Adduction",detail:"3 x 5 (5s hold)"}
+            { name:"Knee Rehab: Activation", exercises:[
+              {text:"Copenhagen Hip Adduction",detail:"2 x 5 (5s hold)"}
             ]},
             { name:"CrossFit Skill: Pull-up (~5 min)", exercises:[
               {text:"Strict Pull-ups",detail:"3 x 3 (light)"},
@@ -974,10 +931,8 @@ const PLAN = {
         },
         { date:"Thu 30 Apr", title:"Pre-Race: Activation Only (Run Day)", type:"taper",
           sections:[
-            { name:"Knee Rehab: Activation Only (~5 min)", exercises:[
-              {text:"SL Star Excursion",detail:"2 x 4"},
-              {text:"Step Downs",detail:"2 x 5"},
-              {text:"Resisted Crab Walks",detail:"2 x 10 (light)"}
+            { name:"Knee Rehab: Activation", exercises:[
+              {text:"Copenhagen Hip Adduction",detail:"2 x 5 (5s hold)"}
             ]},
             { name:"Shoulder Prehab (~5 min)", exercises:[
               {text:"External Rotation Isometric Holds",detail:"3 x 15s"},
@@ -993,28 +948,7 @@ const PLAN = {
           ]
         },
         { date:"Fri 1 May", title:"RACE DAY - HYROX OPEN DOUBLES", type:"raceday",
-          sections:[
-            { name:"Pre-Race (~15 min)", exercises:[
-              {text:"Knee rehab: activation only (star excursion, step downs)",detail:"5 min"},
-              {text:"Shoulder prehab: full protocol",detail:""},
-              {text:"Dynamic warm-up: 5 min light jog + arm circles + leg swings",detail:""},
-              {text:"3 min SkiErg or Row easy",detail:""},
-              {text:"2 x 5 wall balls (6kg) + 2 x short sled push to prime",detail:""}
-            ]},
-            { name:"Race Strategy", exercises:[
-              {text:"Pace first 4 run segments - do not go out hot",detail:""},
-              {text:"Communicate with partner on station splits",detail:""},
-              {text:"Push last 2 stations when finish is close",detail:""},
-              {text:"Hydration: sip between every station",detail:""}
-            ]},
-            { name:"Race Log", exercises:[
-              {text:"Finish Time:",detail:"Use notes below"},
-              {text:"Run splits:",detail:"Use notes below"},
-              {text:"Station splits:",detail:"Use notes below"},
-              {text:"Partner communication:",detail:"Use notes below"},
-              {text:"Lessons for next time:",detail:"Use notes below"}
-            ]}
-          ]
+          sections:[]
         }
       ]
     }
