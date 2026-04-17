@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Netlify
+.netlify/
+
+# Claude/Superpowers tooling
+.claude/
+.playwright-mcp/
+
+# Environment
+.env
+.env.*
